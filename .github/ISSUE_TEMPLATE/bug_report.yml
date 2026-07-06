@@ -1,0 +1,53 @@
+name: Bug Report
+description: Report a bug in the SignWell PHP SDK
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What happened? What did you expect to happen?
+      placeholder: |
+        When I call `Client::fromApiKey($apiKey)->createDocument(...)`, I get an exception...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Minimal code example or steps to reproduce the issue.
+      placeholder: |
+        ```php
+        $client = SignWell\Sdk\Client::fromApiKey($apiKey);
+        $client->createDocument(['test_mode' => true, ...]);
+        ```
+    validations:
+      required: true
+
+  - type: input
+    id: sdk-version
+    attributes:
+      label: SDK version
+      description: "Output of: `composer show signwell/signwell-sdk-php --format=json | jq -r .versions[0]`"
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP version
+      description: "Output of: `php -v`"
+      placeholder: "PHP 8.2.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: stacktrace
+    attributes:
+      label: Error output / stacktrace
+      description: Paste any error messages or stack traces.
+      render: text
+    validations:
+      required: false

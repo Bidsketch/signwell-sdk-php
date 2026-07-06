@@ -1,0 +1,61 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: SemVer version to tag, for example 0.1.0
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  tag-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: curl, json, mbstring
+          coverage: none
+          tools: composer:v2
+
+      - name: Validate release version
+        run: |
+          set -euo pipefail
+          if ! [[ "${{ inputs.version }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[0-9A-Za-z.-]+)?$ ]]; then
+            echo "::error::Version must be SemVer, for example 0.1.0 or 0.1.0-beta.1"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist --no-progress
+
+      - name: Validate package
+        run: |
+          set -euo pipefail
+          composer validate --strict
+          composer check
+          composer audit --no-interaction --no-dev
+          mkdir -p build
+          composer archive --format=zip --file=build/signwell-sdk-php
+
+      - name: Create GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ inputs.version }}
+        run: |
+          set -euo pipefail
+          tag="v${VERSION}"
+          git diff --quiet
+          git tag "$tag"
+          git push origin "$tag"
+          gh release create "$tag" \
+            --title "$tag" \
+            --notes "SignWell PHP SDK ${VERSION}" \
+            build/signwell-sdk-php.zip

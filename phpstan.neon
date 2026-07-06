@@ -1,0 +1,9 @@
+parameters:
+  level: 3
+  paths:
+    - lib
+    - test/Regression
+  excludePaths:
+    analyse:
+      - lib/Models/*
+  tmpDir: .phpstan.cache

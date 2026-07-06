@@ -1,0 +1,103 @@
+{
+    "name": "signwell/signwell-sdk-php",
+    "description": "PHP SDK for the SignWell API - electronic signature platform",
+    "keywords": [
+        "signwell",
+        "esignature",
+        "electronic-signature",
+        "php",
+        "sdk",
+        "api"
+    ],
+    "homepage": "https://github.com/Bidsketch/signwell-sdk-php",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "SignWell",
+            "homepage": "https://www.signwell.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/Bidsketch/signwell-sdk-php/issues",
+        "source": "https://github.com/Bidsketch/signwell-sdk-php"
+    },
+    "require": {
+        "php": ">=8.2",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "guzzlehttp/guzzle": "^7.8",
+        "guzzlehttp/psr7": "^2.6"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^3.64",
+        "illuminate/support": "^10.0 || ^11.0 || ^12.0",
+        "phpstan/phpstan": "^1.11 || ^2.0",
+        "phpunit/phpunit": "^10.5 || ^11.0",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "suggest": {
+        "illuminate/support": "Required only when using SignWell's optional Laravel service provider and facade."
+    },
+    "autoload": {
+        "psr-4": {
+            "SignWell\\Sdk\\": "lib/"
+        },
+        "files": [
+            "lib/Errors.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SignWell\\Sdk\\Test\\": "test/"
+        }
+    },
+    "scripts": {
+        "fix": "php-cs-fixer fix --allow-risky=yes",
+        "lint": "php-cs-fixer fix --dry-run --diff --allow-risky=yes",
+        "analyse": "phpstan analyse --memory-limit=1G",
+        "test": "phpunit",
+        "check": [
+            "@lint",
+            "@analyse",
+            "@test"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "php-http/discovery": true
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "SignWell\\Sdk\\Laravel\\SignWellServiceProvider"
+            ],
+            "aliases": {
+                "SignWell": "SignWell\\Sdk\\Laravel\\Facades\\SignWell"
+            }
+        }
+    },
+    "archive": {
+        "exclude": [
+            "/.github",
+            "/.gitattributes",
+            "/.gitignore",
+            "/.openapi-generator",
+            "/.openapi-generator-ignore",
+            "/.php-cs-fixer.dist.php",
+            "/.php-cs-fixer.cache",
+            "/.phpstan.cache",
+            "/.phpunit.cache",
+            "/build",
+            "/composer.lock",
+            "/coverage",
+            "/openapi.yaml",
+            "/phpstan.neon",
+            "/phpunit.xml.dist",
+            "/test",
+            "/vendor"
+        ]
+    }
+}
