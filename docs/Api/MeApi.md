@@ -30,7 +30,7 @@ $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKey('X-Ap
 // $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-Api-Key', 'Bearer');
 
 
-$apiInstance = new SignWell\Sdk\Api\MeApi(
+$apiInstance = new SignWell\Sdk\Resources\MeApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),

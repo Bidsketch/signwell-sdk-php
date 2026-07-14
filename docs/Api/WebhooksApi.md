@@ -32,7 +32,7 @@ $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKey('X-Ap
 // $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-Api-Key', 'Bearer');
 
 
-$apiInstance = new SignWell\Sdk\Api\WebhooksApi(
+$apiInstance = new SignWell\Sdk\Resources\WebhooksApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -94,7 +94,7 @@ $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKey('X-Ap
 // $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-Api-Key', 'Bearer');
 
 
-$apiInstance = new SignWell\Sdk\Api\WebhooksApi(
+$apiInstance = new SignWell\Sdk\Resources\WebhooksApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),
@@ -155,7 +155,7 @@ $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKey('X-Ap
 // $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-Api-Key', 'Bearer');
 
 
-$apiInstance = new SignWell\Sdk\Api\WebhooksApi(
+$apiInstance = new SignWell\Sdk\Resources\WebhooksApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
     new GuzzleHttp\Client(),

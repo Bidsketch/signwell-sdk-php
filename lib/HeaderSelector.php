@@ -3,7 +3,7 @@
 declare(strict_types=1);
 /**
  * HeaderSelector
- * PHP version 7.4
+ * PHP version 8.2
  *
  * @category Class
  * @package  SignWell\Sdk

@@ -3,7 +3,7 @@
 declare(strict_types=1);
 /**
  * WebhooksApi
- * PHP version 7.4
+ * PHP version 8.2
  *
  * @category Class
  * @package  SignWell\Sdk
@@ -169,35 +169,17 @@ class WebhooksApi
 
         try {
             $options = $this->createHttpClientOption();
+            $this->debugRequest($request);
             try {
                 $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw ApiException::fromResponse(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        (int) $e->getCode(),
-                        $this->sanitizeRequestUri($e->getRequest())
-                    ),
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null,
-                    $e
-                );
-            } catch (ConnectException $e) {
-                throw new \SignWell\Sdk\Errors\ApiConnectionError(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        (int) $e->getCode(),
-                        $this->sanitizeRequestUri($request)
-                    ),
-                    (int) $e->getCode(),
-                    null,
-                    null,
-                    $e
-                );
+                $this->debugResponse($request, $response);
+            } catch (RequestException|ConnectException $e) {
+                $this->debugTransportError($request, $e);
+                throw $this->createApiExceptionFromTransportException($e, $request);
             }
 
             $statusCode = $response->getStatusCode();
+            $this->throwIfErrorResponse($response, $request);
 
 
             switch ($statusCode) {
@@ -392,56 +374,23 @@ class WebhooksApi
     {
         $returnType = '\SignWell\Sdk\Models\WebhookResponse';
         $request = $this->createWebhookRequest($create_webhook_request, $contentType);
+        $options = $this->createHttpClientOption();
+        $this->debugRequest($request);
 
         return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
+            ->sendAsync($request, $options)
             ->then(
                 function (ResponseInterface $response) use ($request, $returnType) {
+                    $this->debugResponse($request, $response);
+                    $this->throwIfErrorResponse($response, $request);
                     return $this->deserializeResponse($response, $request, $returnType);
                 },
                 function ($exception) use ($request) {
-                    if ($exception instanceof ConnectException) {
-                        throw new \SignWell\Sdk\Errors\ApiConnectionError(
-                            sprintf(
-                                '[%d] Error connecting to the API (%s)',
-                                (int) $exception->getCode(),
-                                $this->sanitizeRequestUri($request)
-                            ),
-                            (int) $exception->getCode(),
-                            null,
-                            null,
-                            $exception
-                        );
-                    }
-
-                    $response = $exception instanceof RequestException ? $exception->getResponse() : null;
-                    if ($response === null) {
-                        throw new \SignWell\Sdk\Errors\ApiConnectionError(
-                            sprintf(
-                                '[%d] Error connecting to the API (%s)',
-                                (int) $exception->getCode(),
-                                $this->sanitizeRequestUri($request)
-                            ),
-                            (int) $exception->getCode(),
-                            null,
-                            null,
-                            $exception
-                        );
-                    }
-
-                    $statusCode = $response->getStatusCode();
-                    $requestForMessage = $exception instanceof RequestException ? $exception->getRequest() : $request;
-                    throw ApiException::fromResponse(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $this->sanitizeRequestUri($requestForMessage)
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody(),
-                        $exception
-                    );
+                    $throwable = $exception instanceof \Throwable
+                        ? $exception
+                        : new \RuntimeException('Unexpected asynchronous transport error.');
+                    $this->debugTransportError($request, $throwable);
+                    throw $this->createApiExceptionFromTransportException($throwable, $request);
                 }
             );
     }
@@ -576,35 +525,17 @@ class WebhooksApi
 
         try {
             $options = $this->createHttpClientOption();
+            $this->debugRequest($request);
             try {
                 $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw ApiException::fromResponse(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        (int) $e->getCode(),
-                        $this->sanitizeRequestUri($e->getRequest())
-                    ),
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null,
-                    $e
-                );
-            } catch (ConnectException $e) {
-                throw new \SignWell\Sdk\Errors\ApiConnectionError(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        (int) $e->getCode(),
-                        $this->sanitizeRequestUri($request)
-                    ),
-                    (int) $e->getCode(),
-                    null,
-                    null,
-                    $e
-                );
+                $this->debugResponse($request, $response);
+            } catch (RequestException|ConnectException $e) {
+                $this->debugTransportError($request, $e);
+                throw $this->createApiExceptionFromTransportException($e, $request);
             }
 
             $statusCode = $response->getStatusCode();
+            $this->throwIfErrorResponse($response, $request);
 
 
             return [null, $statusCode, $response->getHeaders()];
@@ -668,56 +599,23 @@ class WebhooksApi
     {
         $returnType = '';
         $request = $this->deleteWebhookRequest($id, $contentType);
+        $options = $this->createHttpClientOption();
+        $this->debugRequest($request);
 
         return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
+            ->sendAsync($request, $options)
             ->then(
-                function (ResponseInterface $response) {
+                function (ResponseInterface $response) use ($request) {
+                    $this->debugResponse($request, $response);
+                    $this->throwIfErrorResponse($response, $request);
                     return [null, $response->getStatusCode(), $response->getHeaders()];
                 },
                 function ($exception) use ($request) {
-                    if ($exception instanceof ConnectException) {
-                        throw new \SignWell\Sdk\Errors\ApiConnectionError(
-                            sprintf(
-                                '[%d] Error connecting to the API (%s)',
-                                (int) $exception->getCode(),
-                                $this->sanitizeRequestUri($request)
-                            ),
-                            (int) $exception->getCode(),
-                            null,
-                            null,
-                            $exception
-                        );
-                    }
-
-                    $response = $exception instanceof RequestException ? $exception->getResponse() : null;
-                    if ($response === null) {
-                        throw new \SignWell\Sdk\Errors\ApiConnectionError(
-                            sprintf(
-                                '[%d] Error connecting to the API (%s)',
-                                (int) $exception->getCode(),
-                                $this->sanitizeRequestUri($request)
-                            ),
-                            (int) $exception->getCode(),
-                            null,
-                            null,
-                            $exception
-                        );
-                    }
-
-                    $statusCode = $response->getStatusCode();
-                    $requestForMessage = $exception instanceof RequestException ? $exception->getRequest() : $request;
-                    throw ApiException::fromResponse(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $this->sanitizeRequestUri($requestForMessage)
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody(),
-                        $exception
-                    );
+                    $throwable = $exception instanceof \Throwable
+                        ? $exception
+                        : new \RuntimeException('Unexpected asynchronous transport error.');
+                    $this->debugTransportError($request, $throwable);
+                    throw $this->createApiExceptionFromTransportException($throwable, $request);
                 }
             );
     }
@@ -853,35 +751,17 @@ class WebhooksApi
 
         try {
             $options = $this->createHttpClientOption();
+            $this->debugRequest($request);
             try {
                 $response = $this->client->send($request, $options);
-            } catch (RequestException $e) {
-                throw ApiException::fromResponse(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        (int) $e->getCode(),
-                        $this->sanitizeRequestUri($e->getRequest())
-                    ),
-                    (int) $e->getCode(),
-                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
-                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null,
-                    $e
-                );
-            } catch (ConnectException $e) {
-                throw new \SignWell\Sdk\Errors\ApiConnectionError(
-                    sprintf(
-                        '[%d] Error connecting to the API (%s)',
-                        (int) $e->getCode(),
-                        $this->sanitizeRequestUri($request)
-                    ),
-                    (int) $e->getCode(),
-                    null,
-                    null,
-                    $e
-                );
+                $this->debugResponse($request, $response);
+            } catch (RequestException|ConnectException $e) {
+                $this->debugTransportError($request, $e);
+                throw $this->createApiExceptionFromTransportException($e, $request);
             }
 
             $statusCode = $response->getStatusCode();
+            $this->throwIfErrorResponse($response, $request);
 
 
             switch ($statusCode) {
@@ -1039,56 +919,23 @@ class WebhooksApi
     {
         $returnType = '\SignWell\Sdk\Models\WebhookResponse[]';
         $request = $this->listWebhooksRequest($contentType);
+        $options = $this->createHttpClientOption();
+        $this->debugRequest($request);
 
         return $this->client
-            ->sendAsync($request, $this->createHttpClientOption())
+            ->sendAsync($request, $options)
             ->then(
                 function (ResponseInterface $response) use ($request, $returnType) {
+                    $this->debugResponse($request, $response);
+                    $this->throwIfErrorResponse($response, $request);
                     return $this->deserializeResponse($response, $request, $returnType);
                 },
                 function ($exception) use ($request) {
-                    if ($exception instanceof ConnectException) {
-                        throw new \SignWell\Sdk\Errors\ApiConnectionError(
-                            sprintf(
-                                '[%d] Error connecting to the API (%s)',
-                                (int) $exception->getCode(),
-                                $this->sanitizeRequestUri($request)
-                            ),
-                            (int) $exception->getCode(),
-                            null,
-                            null,
-                            $exception
-                        );
-                    }
-
-                    $response = $exception instanceof RequestException ? $exception->getResponse() : null;
-                    if ($response === null) {
-                        throw new \SignWell\Sdk\Errors\ApiConnectionError(
-                            sprintf(
-                                '[%d] Error connecting to the API (%s)',
-                                (int) $exception->getCode(),
-                                $this->sanitizeRequestUri($request)
-                            ),
-                            (int) $exception->getCode(),
-                            null,
-                            null,
-                            $exception
-                        );
-                    }
-
-                    $statusCode = $response->getStatusCode();
-                    $requestForMessage = $exception instanceof RequestException ? $exception->getRequest() : $request;
-                    throw ApiException::fromResponse(
-                        sprintf(
-                            '[%d] Error connecting to the API (%s)',
-                            $statusCode,
-                            $this->sanitizeRequestUri($requestForMessage)
-                        ),
-                        $statusCode,
-                        $response->getHeaders(),
-                        (string) $response->getBody(),
-                        $exception
-                    );
+                    $throwable = $exception instanceof \Throwable
+                        ? $exception
+                        : new \RuntimeException('Unexpected asynchronous transport error.');
+                    $this->debugTransportError($request, $throwable);
+                    throw $this->createApiExceptionFromTransportException($throwable, $request);
                 }
             );
     }
@@ -1227,6 +1074,154 @@ class WebhooksApi
         return (string) $request->getUri()->withQuery('')->withFragment('');
     }
 
+    protected function throwIfErrorResponse(ResponseInterface $response, RequestInterface $request): void
+    {
+        $statusCode = $response->getStatusCode();
+        if ($statusCode < 200 || $statusCode > 299) {
+            throw ApiException::fromResponse(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    $this->sanitizeRequestUri($request)
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody()
+            );
+        }
+    }
+
+    protected function createApiExceptionFromTransportException(\Throwable $exception, RequestInterface $request): ApiException
+    {
+        $response = $exception instanceof RequestException ? $exception->getResponse() : null;
+        if ($response !== null) {
+            $statusCode = $response->getStatusCode();
+            $requestForMessage = $exception instanceof RequestException ? $exception->getRequest() : $request;
+
+            return ApiException::fromResponse(
+                sprintf(
+                    '[%d] Error connecting to the API (%s)',
+                    $statusCode,
+                    $this->sanitizeRequestUri($requestForMessage)
+                ),
+                $statusCode,
+                $response->getHeaders(),
+                (string) $response->getBody(),
+                $exception
+            );
+        }
+
+        $errorClass = $this->isTimeoutException($exception)
+            ? \SignWell\Sdk\Errors\ApiTimeoutError::class
+            : \SignWell\Sdk\Errors\ApiConnectionError::class;
+
+        return new $errorClass(
+            sprintf(
+                '[%d] Error connecting to the API (%s)',
+                (int) $exception->getCode(),
+                $this->sanitizeRequestUri($request)
+            ),
+            (int) $exception->getCode(),
+            null,
+            null,
+            $exception
+        );
+    }
+
+    protected function isTimeoutException(\Throwable $exception): bool
+    {
+        if (method_exists($exception, 'getHandlerContext')) {
+            $context = $exception->getHandlerContext();
+            $errno = $context['errno'] ?? null;
+            if ((int) $errno === 28) {
+                return true;
+            }
+        }
+
+        $message = strtolower($exception->getMessage());
+
+        return str_contains($message, 'timed out') || str_contains($message, 'timeout');
+    }
+
+    protected function debugRequest(RequestInterface $request): void
+    {
+        if (!$this->config->getDebug()) {
+            return;
+        }
+
+        $this->writeDebugLine(sprintf('Request: %s %s', $request->getMethod(), $this->sanitizeRequestUri($request)));
+        $this->writeDebugLine('Request headers: ' . $this->encodedHeaders($request->getHeaders()));
+    }
+
+    protected function debugResponse(RequestInterface $request, ResponseInterface $response): void
+    {
+        if (!$this->config->getDebug()) {
+            return;
+        }
+
+        $this->writeDebugLine(sprintf(
+            'Response: %d %s',
+            $response->getStatusCode(),
+            $this->sanitizeRequestUri($request)
+        ));
+        $this->writeDebugLine('Response headers: ' . $this->encodedHeaders($response->getHeaders()));
+    }
+
+    protected function debugTransportError(RequestInterface $request, \Throwable $exception): void
+    {
+        if (!$this->config->getDebug()) {
+            return;
+        }
+
+        $this->writeDebugLine(sprintf(
+            'Transport error: %s code=%d timeout=%s uri=%s',
+            $exception::class,
+            (int) $exception->getCode(),
+            $this->isTimeoutException($exception) ? 'true' : 'false',
+            $this->sanitizeRequestUri($request)
+        ));
+    }
+
+    /**
+     * @param string[][] $headers
+     */
+    protected function encodedHeaders(array $headers): string
+    {
+        $encoded = json_encode($this->redactHeaders($headers), JSON_UNESCAPED_SLASHES);
+
+        return is_string($encoded) ? $encoded : '{}';
+    }
+
+    /**
+     * @param string[][] $headers
+     * @return string[][]
+     */
+    protected function redactHeaders(array $headers): array
+    {
+        $redacted = [];
+        foreach ($headers as $name => $values) {
+            $redacted[$name] = in_array(strtolower((string) $name), ['authorization', 'proxy-authorization', 'x-api-key'], true)
+                ? ['[REDACTED]']
+                : $values;
+        }
+
+        return $redacted;
+    }
+
+    protected function writeDebugLine(string $line): void
+    {
+        $handle = fopen($this->config->getDebugFile(), 'a');
+        if (!$handle) {
+            throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
+        }
+
+        try {
+            fwrite($handle, '[' . date('c') . '] ' . $line . PHP_EOL);
+        } finally {
+            fclose($handle);
+        }
+    }
+
     /**
      * Create http client option
      *
@@ -1235,14 +1230,9 @@ class WebhooksApi
      */
     protected function createHttpClientOption()
     {
-        $options = [];
-        if ($this->config->getDebug()) {
-            $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
-            if (!$options[RequestOptions::DEBUG]) {
-                throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
-            }
-        }
-
-        return $options;
+        return [
+            RequestOptions::CONNECT_TIMEOUT => $this->config->getConnectTimeout(),
+            RequestOptions::TIMEOUT => $this->config->getTimeout(),
+        ];
     }
 }

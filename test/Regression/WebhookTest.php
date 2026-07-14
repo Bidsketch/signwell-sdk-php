@@ -7,7 +7,6 @@ namespace SignWell\Sdk\Test\Regression;
 use PHPUnit\Framework\TestCase;
 use SignWell\Sdk\Webhook;
 use SignWell\Sdk\Webhook\MemoryReplayStore;
-use SignWell\Sdk\Webhook\ReplayStoreCapacityExceededException;
 
 final class WebhookTest extends TestCase
 {
@@ -56,28 +55,48 @@ final class WebhookTest extends TestCase
         }
     }
 
-    public function testReplayProtectionThrowsWhenStoreCapacityIsExceeded(): void
+    public function testReplayProtectionEvictsOldestEntryAtCapacity(): void
     {
-        $store = new MemoryReplayStore(maxEntries: 1, now: static fn (): int => 1710000000);
+        $store = new MemoryReplayStore(maxEntries: 2, now: static fn (): int => 1710000000);
+        $first = $this->signedEvent('whk_123', type: 'document_completed');
+        $second = $this->signedEvent('whk_123', type: 'document_declined');
+        $third = $this->signedEvent('whk_123', type: 'document_viewed');
 
         self::assertTrue(Webhook::verifyEventOnce(
-            $this->signedEvent('whk_123', type: 'document_completed'),
+            $first,
             'whk_123',
             $store,
             300,
             static fn (): int => 1710000001
         ));
-
-        $this->expectException(ReplayStoreCapacityExceededException::class);
-        $this->expectExceptionMessage('webhook replay store capacity was exceeded');
-
-        Webhook::verifyEventOnce(
-            $this->signedEvent('whk_123', type: 'document_declined'),
+        self::assertTrue(Webhook::verifyEventOnce(
+            $second,
             'whk_123',
             $store,
             300,
             static fn (): int => 1710000002
-        );
+        ));
+        self::assertFalse(Webhook::verifyEventOnce(
+            $second,
+            'whk_123',
+            $store,
+            300,
+            static fn (): int => 1710000003
+        ));
+        self::assertTrue(Webhook::verifyEventOnce(
+            $third,
+            'whk_123',
+            $store,
+            300,
+            static fn (): int => 1710000004
+        ));
+        self::assertTrue(Webhook::verifyEventOnce(
+            $first,
+            'whk_123',
+            $store,
+            300,
+            static fn (): int => 1710000005
+        ));
     }
 
     /** @return array{type:string,time:string,hash:string} */

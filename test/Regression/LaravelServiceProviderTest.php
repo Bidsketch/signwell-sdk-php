@@ -9,7 +9,15 @@ use Illuminate\Contracts\Foundation\CachesConfiguration;
 use Illuminate\Support\Env;
 use PHPUnit\Framework\TestCase;
 use SignWell\Sdk\Configuration;
+use SignWell\Sdk\Laravel\SignWellManager;
 use SignWell\Sdk\Laravel\SignWellServiceProvider;
+use SignWell\Sdk\Resources\ApiApplicationApi;
+use SignWell\Sdk\Resources\BulkSendApi;
+use SignWell\Sdk\Resources\DocumentApi;
+use SignWell\Sdk\Resources\MeApi;
+use SignWell\Sdk\Resources\RegionalApi;
+use SignWell\Sdk\Resources\TemplateApi;
+use SignWell\Sdk\Resources\WebhooksApi;
 
 final class LaravelServiceProviderTest extends TestCase
 {
@@ -84,6 +92,56 @@ final class LaravelServiceProviderTest extends TestCase
         }
     }
 
+    public function testRegisterRejectsMissingOrBlankApiKey(): void
+    {
+        $previous = Configuration::getDefaultConfiguration();
+
+        foreach ([null, '', '   '] as $apiKey) {
+            $app = new FakeLaravelApplication(new FakeConfigRepository([
+                'signwell' => [
+                    'api_key' => $apiKey,
+                    'host' => 'https://api.signwell.test',
+                ],
+            ]));
+
+            try {
+                (new SignWellServiceProvider($app))->register();
+                self::fail('Expected missing Laravel API key to be rejected.');
+            } catch (\InvalidArgumentException $error) {
+                self::assertStringContainsString('SIGNWELL_API_KEY', $error->getMessage());
+            } finally {
+                Configuration::setDefaultConfiguration($previous);
+            }
+        }
+    }
+
+    public function testRegisterResolvesConfiguredManagerAndApiBindings(): void
+    {
+        $previous = Configuration::getDefaultConfiguration();
+        $app = new FakeLaravelApplication(new FakeConfigRepository([
+            'signwell' => [
+                'api_key' => 'laravel-key',
+                'host' => 'https://api.signwell.test/',
+            ],
+        ]));
+
+        try {
+            (new SignWellServiceProvider($app))->register();
+
+            self::assertInstanceOf(SignWellManager::class, $app->make(SignWellManager::class));
+            self::assertSame($app->make(SignWellManager::class), $app->make('signwell'));
+
+            foreach ([DocumentApi::class, TemplateApi::class, BulkSendApi::class, RegionalApi::class, MeApi::class, ApiApplicationApi::class, WebhooksApi::class] as $apiClass) {
+                $api = $app->make($apiClass);
+                self::assertInstanceOf($apiClass, $api);
+                self::assertSame('laravel-key', $api->getConfig()->getApiKey('X-Api-Key'));
+                self::assertSame('https://api.signwell.test', $api->getConfig()->getHost());
+            }
+        } finally {
+            Configuration::setDefaultConfiguration($previous);
+        }
+    }
+
     private static function restoreEnvironmentVariable(string $key, string|false $value): void
     {
         if ($value === false) {
@@ -121,12 +179,29 @@ final class FakeLaravelApplication implements CachesConfiguration
     {
         unset($parameters);
 
+        if (array_key_exists($abstract, $this->aliases)) {
+            return $this->make($this->aliases[$abstract]);
+        }
+
         if ($abstract === 'config') {
             return $this->config;
         }
 
         if (array_key_exists($abstract, $this->instances)) {
             return $this->instances[$abstract];
+        }
+
+        if (array_key_exists($abstract, $this->singletons)) {
+            $concrete = $this->singletons[$abstract];
+            $this->instances[$abstract] = $concrete instanceof \Closure ? $concrete($this) : $concrete;
+
+            return $this->instances[$abstract];
+        }
+
+        if (array_key_exists($abstract, $this->bindings)) {
+            $concrete = $this->bindings[$abstract];
+
+            return $concrete instanceof \Closure ? $concrete($this) : $concrete;
         }
 
         throw new \RuntimeException("No fake Laravel binding registered for {$abstract}.");
