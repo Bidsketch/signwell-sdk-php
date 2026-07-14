@@ -35,8 +35,13 @@ final class MemoryReplayStore implements ReplayStoreInterface
             return false;
         }
 
-        if (count($this->entries) >= $this->maxEntries) {
-            throw new ReplayStoreCapacityExceededException('webhook replay store capacity was exceeded');
+        while (count($this->entries) >= $this->maxEntries) {
+            $oldestKey = array_key_first($this->entries);
+            if ($oldestKey === null) {
+                break;
+            }
+
+            unset($this->entries[$oldestKey]);
         }
 
         $this->entries[$key] = $expiresAtUnixSeconds;

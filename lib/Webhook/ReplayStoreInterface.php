@@ -12,7 +12,7 @@ interface ReplayStoreInterface
     /**
      * @return bool false only when the replay key already exists
      *
-     * @throws ReplayStoreCapacityExceededException when the store cannot accept new keys
+     * @throws ReplayStoreCapacityExceededException when an implementation cannot evict or persist a new key
      */
     public function add(string $key, float $expiresAtUnixSeconds): bool;
 }

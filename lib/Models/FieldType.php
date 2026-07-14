@@ -4,7 +4,7 @@ declare(strict_types=1);
 /**
  * FieldType
  *
- * PHP version 7.4
+ * PHP version 8.2
  *
  * @category Class
  * @package  SignWell\Sdk

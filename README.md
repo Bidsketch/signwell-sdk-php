@@ -142,23 +142,27 @@ use SignWell\Sdk\Webhook\MemoryReplayStore;
 
 $payload = json_decode(file_get_contents('php://input'), true, flags: JSON_THROW_ON_ERROR);
 $event = $payload['event'];
+$webhookId = getenv('SIGNWELL_WEBHOOK_ID');
+if (!is_string($webhookId) || $webhookId === '') {
+    throw new RuntimeException('SIGNWELL_WEBHOOK_ID must be set.');
+}
 
 Webhook::verifyEventOrThrow(
     event: $event,
-    webhookId: getenv('SIGNWELL_WEBHOOK_ID'),
+    webhookId: $webhookId,
     toleranceSeconds: 300,
 );
 
 $store = new MemoryReplayStore();
 Webhook::verifyEventOnceOrThrow(
     event: $event,
-    webhookId: getenv('SIGNWELL_WEBHOOK_ID'),
+    webhookId: $webhookId,
     replayStore: $store,
     toleranceSeconds: 300,
 );
 ```
 
-Use `verifyEventOnce` or `verifyEventOnceOrThrow` with an application-provided atomic replay store for side-effecting webhook handlers. Replay stores should return `false` only for duplicate keys and throw `ReplayStoreCapacityExceededException` when they cannot accept a new key. The included memory store is for local development and single-process examples.
+Use `verifyEventOnce` or `verifyEventOnceOrThrow` with an application-provided atomic replay store for side-effecting webhook handlers. Replay stores should return `false` only for duplicate keys. The included memory store is for local development and single-process examples; when full, it evicts the oldest unexpired entry.
 
 ## Laravel
 

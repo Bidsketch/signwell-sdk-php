@@ -127,6 +127,20 @@ class Configuration
     protected $tempFolderPath;
 
     /**
+     * Guzzle connect timeout in seconds. Set to 0 to disable.
+     *
+     * @var float
+     */
+    protected float $connectTimeout = 10.0;
+
+    /**
+     * Guzzle request timeout in seconds. Set to 0 to disable.
+     *
+     * @var float
+     */
+    protected float $timeout = 30.0;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -406,6 +420,40 @@ class Configuration
     public function getDebugFile()
     {
         return $this->debugFile;
+    }
+
+    public function setConnectTimeout(float|int $seconds): self
+    {
+        $this->connectTimeout = self::normalizeTimeout($seconds, 'connect timeout');
+
+        return $this;
+    }
+
+    public function getConnectTimeout(): float
+    {
+        return $this->connectTimeout;
+    }
+
+    public function setTimeout(float|int $seconds): self
+    {
+        $this->timeout = self::normalizeTimeout($seconds, 'timeout');
+
+        return $this;
+    }
+
+    public function getTimeout(): float
+    {
+        return $this->timeout;
+    }
+
+    private static function normalizeTimeout(float|int $seconds, string $name): float
+    {
+        $normalized = (float) $seconds;
+        if ($normalized < 0) {
+            throw new \InvalidArgumentException(sprintf('%s must be greater than or equal to 0.', ucfirst($name)));
+        }
+
+        return $normalized;
     }
 
     /**

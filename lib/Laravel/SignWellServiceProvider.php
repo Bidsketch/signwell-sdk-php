@@ -8,7 +8,6 @@ declare(strict_types=1);
 namespace SignWell\Sdk\Laravel;
 
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 use SignWell\Sdk\Client;
 use SignWell\Sdk\Configuration;
@@ -18,6 +17,7 @@ use SignWell\Sdk\Resources\DocumentApi;
 use SignWell\Sdk\Resources\MeApi;
 use SignWell\Sdk\Resources\RegionalApi;
 use SignWell\Sdk\Resources\TemplateApi;
+use SignWell\Sdk\Resources\WebhooksApi;
 
 final class SignWellServiceProvider extends ServiceProvider
 {
@@ -34,12 +34,12 @@ final class SignWellServiceProvider extends ServiceProvider
         Configuration::setDefaultConfiguration($config);
         $this->app->instance(Configuration::class, $config);
 
-        $this->app->singleton(SignWellManager::class, fn (Application $app): SignWellManager => new SignWellManager($app->make(Configuration::class)));
+        $this->app->singleton(SignWellManager::class, fn ($app): SignWellManager => new SignWellManager($app->make(Configuration::class)));
         $this->app->alias(SignWellManager::class, Client::class);
         $this->app->alias(SignWellManager::class, 'signwell');
 
-        foreach ([DocumentApi::class, TemplateApi::class, BulkSendApi::class, RegionalApi::class, MeApi::class, ApiApplicationApi::class] as $apiClass) {
-            $this->app->bind($apiClass, fn (Application $app): object => new $apiClass(config: $app->make(Configuration::class)));
+        foreach ([DocumentApi::class, TemplateApi::class, BulkSendApi::class, RegionalApi::class, MeApi::class, ApiApplicationApi::class, WebhooksApi::class] as $apiClass) {
+            $this->app->bind($apiClass, fn ($app): object => new $apiClass(config: $app->make(Configuration::class)));
         }
     }
 
@@ -58,9 +58,11 @@ final class SignWellServiceProvider extends ServiceProvider
     {
         $config = new Configuration();
         $apiKey = $repository->get('signwell.api_key');
-        if (is_string($apiKey) && $apiKey !== '') {
-            $config->setApiKey('X-Api-Key', $apiKey);
+        if (!is_string($apiKey) || trim($apiKey) === '') {
+            throw new \InvalidArgumentException('SignWell Laravel API key must be configured with SIGNWELL_API_KEY.');
         }
+
+        $config->setApiKey('X-Api-Key', trim($apiKey));
 
         $host = $repository->get('signwell.host');
         if (is_string($host) && $host !== '') {
