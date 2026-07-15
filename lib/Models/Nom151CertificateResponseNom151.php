@@ -281,13 +281,14 @@ class Nom151CertificateResponseNom151 implements ModelInterface, ArrayAccess, \J
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('transaction_id', $data ?? [], null);
@@ -297,6 +298,30 @@ class Nom151CertificateResponseNom151 implements ModelInterface, ArrayAccess, \J
         $this->setIfExists('provider', $data ?? [], null);
         $this->setIfExists('validation_url', $data ?? [], null);
         $this->setIfExists('constancia', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -388,6 +413,7 @@ class Nom151CertificateResponseNom151 implements ModelInterface, ArrayAccess, \J
             throw new \InvalidArgumentException('non-nullable status cannot be null');
         }
         $this->container['status'] = $status;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -415,6 +441,7 @@ class Nom151CertificateResponseNom151 implements ModelInterface, ArrayAccess, \J
             throw new \InvalidArgumentException('non-nullable transaction_id cannot be null');
         }
         $this->container['transaction_id'] = $transaction_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -442,6 +469,7 @@ class Nom151CertificateResponseNom151 implements ModelInterface, ArrayAccess, \J
             throw new \InvalidArgumentException('non-nullable hash cannot be null');
         }
         $this->container['hash'] = $hash;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -469,6 +497,7 @@ class Nom151CertificateResponseNom151 implements ModelInterface, ArrayAccess, \J
             throw new \InvalidArgumentException('non-nullable folio cannot be null');
         }
         $this->container['folio'] = $folio;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -496,6 +525,7 @@ class Nom151CertificateResponseNom151 implements ModelInterface, ArrayAccess, \J
             throw new \InvalidArgumentException('non-nullable issued_at cannot be null');
         }
         $this->container['issued_at'] = $issued_at;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -523,6 +553,7 @@ class Nom151CertificateResponseNom151 implements ModelInterface, ArrayAccess, \J
             throw new \InvalidArgumentException('non-nullable provider cannot be null');
         }
         $this->container['provider'] = $provider;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -550,6 +581,7 @@ class Nom151CertificateResponseNom151 implements ModelInterface, ArrayAccess, \J
             throw new \InvalidArgumentException('non-nullable validation_url cannot be null');
         }
         $this->container['validation_url'] = $validation_url;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -577,9 +609,14 @@ class Nom151CertificateResponseNom151 implements ModelInterface, ArrayAccess, \J
             throw new \InvalidArgumentException('non-nullable constancia cannot be null');
         }
         $this->container['constancia'] = $constancia;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

@@ -22,6 +22,7 @@ use SignWell\Sdk\Resources\DocumentApi;
 use SignWell\Sdk\Resources\MeApi;
 use SignWell\Sdk\Resources\RegionalApi;
 use SignWell\Sdk\Resources\TemplateApi;
+use SignWell\Sdk\Resources\WebhooksApi;
 
 class Client
 {
@@ -82,6 +83,11 @@ class Client
     public function apiApplications(): ApiApplicationApi
     {
         return new ApiApplicationApi($this->httpClient, $this->configuration, $this->headerSelector, $this->hostIndex);
+    }
+
+    public function webhooks(): WebhooksApi
+    {
+        return new WebhooksApi($this->httpClient, $this->configuration, $this->headerSelector, $this->hostIndex);
     }
 
     /** @param array<string, mixed> $params */

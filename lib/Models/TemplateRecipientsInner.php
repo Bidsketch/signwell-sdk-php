@@ -287,13 +287,14 @@ class TemplateRecipientsInner implements ModelInterface, ArrayAccess, \JsonSeria
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
@@ -304,6 +305,32 @@ class TemplateRecipientsInner implements ModelInterface, ArrayAccess, \JsonSeria
         $this->setIfExists('message', $data ?? [], null);
         $this->setIfExists('send_email', $data ?? [], false);
         $this->setIfExists('send_email_delay', $data ?? [], 0);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -377,6 +404,7 @@ class TemplateRecipientsInner implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -404,6 +432,7 @@ class TemplateRecipientsInner implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -431,6 +460,7 @@ class TemplateRecipientsInner implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable email cannot be null');
         }
         $this->container['email'] = $email;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -458,6 +488,7 @@ class TemplateRecipientsInner implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable placeholder_name cannot be null');
         }
         $this->container['placeholder_name'] = $placeholder_name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -485,6 +516,7 @@ class TemplateRecipientsInner implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable passcode cannot be null');
         }
         $this->container['passcode'] = $passcode;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -512,6 +544,7 @@ class TemplateRecipientsInner implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable subject cannot be null');
         }
         $this->container['subject'] = $subject;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -539,6 +572,7 @@ class TemplateRecipientsInner implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable message cannot be null');
         }
         $this->container['message'] = $message;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -566,6 +600,7 @@ class TemplateRecipientsInner implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable send_email cannot be null');
         }
         $this->container['send_email'] = $send_email;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -593,9 +628,14 @@ class TemplateRecipientsInner implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable send_email_delay cannot be null');
         }
         $this->container['send_email_delay'] = $send_email_delay;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

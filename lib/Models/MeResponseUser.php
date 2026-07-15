@@ -270,13 +270,14 @@ class MeResponseUser implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
@@ -284,6 +285,26 @@ class MeResponseUser implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('has_google_registration', $data ?? [], null);
         $this->setIfExists('first_name', $data ?? [], null);
         $this->setIfExists('preferences', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -360,6 +381,7 @@ class MeResponseUser implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -387,6 +409,7 @@ class MeResponseUser implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -414,6 +437,7 @@ class MeResponseUser implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable email cannot be null');
         }
         $this->container['email'] = $email;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -441,6 +465,7 @@ class MeResponseUser implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable has_google_registration cannot be null');
         }
         $this->container['has_google_registration'] = $has_google_registration;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -468,6 +493,7 @@ class MeResponseUser implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable first_name cannot be null');
         }
         $this->container['first_name'] = $first_name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -495,9 +521,14 @@ class MeResponseUser implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable preferences cannot be null');
         }
         $this->container['preferences'] = $preferences;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

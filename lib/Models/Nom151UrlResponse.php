@@ -240,15 +240,26 @@ class Nom151UrlResponse implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('file_url', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
     }
 
     /**
@@ -319,9 +330,14 @@ class Nom151UrlResponse implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable file_url cannot be null');
         }
         $this->container['file_url'] = $file_url;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

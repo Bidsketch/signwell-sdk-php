@@ -252,17 +252,32 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('callback_url', $data ?? [], null);
         $this->setIfExists('api_application_id', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -336,6 +351,7 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -363,6 +379,7 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable callback_url cannot be null');
         }
         $this->container['callback_url'] = $callback_url;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -397,9 +414,14 @@ class WebhookResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['api_application_id'] = $api_application_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

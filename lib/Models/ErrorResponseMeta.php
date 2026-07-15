@@ -251,17 +251,32 @@ class ErrorResponseMeta implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('error', $data ?? [], null);
         $this->setIfExists('message', $data ?? [], null);
         $this->setIfExists('messages', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -335,6 +350,7 @@ class ErrorResponseMeta implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable error cannot be null');
         }
         $this->container['error'] = $error;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -362,6 +378,7 @@ class ErrorResponseMeta implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable message cannot be null');
         }
         $this->container['message'] = $message;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -389,9 +406,14 @@ class ErrorResponseMeta implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable messages cannot be null');
         }
         $this->container['messages'] = $messages;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

@@ -448,6 +448,7 @@ class DocumentApi
             );
     }
 
+
     /**
      * Create request for operation 'createDocument'
      *
@@ -840,6 +841,7 @@ class DocumentApi
             );
     }
 
+
     /**
      * Create request for operation 'createDocumentFromTemplate'
      *
@@ -1064,6 +1066,7 @@ class DocumentApi
                 }
             );
     }
+
 
     /**
      * Create request for operation 'deleteDocument'
@@ -1321,6 +1324,7 @@ class DocumentApi
                 }
             );
     }
+
 
     /**
      * Create request for operation 'getCompletedPdf'
@@ -1721,6 +1725,47 @@ class DocumentApi
     }
 
     /**
+     * Poll getDocument until the document reaches a terminal status.
+     *
+     * @param array{intervalMs?: int, timeoutMs?: int, maxAttempts?: int, terminalStatuses?: list<string>} $options
+     */
+    public function waitForCompletion(string $id, array $options = [], string $contentType = self::contentTypes['getDocument'][0])
+    {
+        $terminalStatuses = $options['terminalStatuses'] ?? [
+            'Completed',
+            'Manually completed',
+            'Declined',
+            'Canceled',
+            'Bounced',
+            'Blocked',
+            'Error',
+            'Expired',
+        ];
+        $intervalMs = (int) ($options['intervalMs'] ?? 2000);
+        $timeoutMs = (int) ($options['timeoutMs'] ?? 120000);
+        $maxAttempts = (int) ($options['maxAttempts'] ?? PHP_INT_MAX);
+        $startedAt = microtime(true);
+        $attempts = 0;
+        $lastDocument = null;
+
+        while (true) {
+            $lastDocument = $this->getDocument($id, $contentType);
+            $status = is_object($lastDocument) && method_exists($lastDocument, 'getStatus') ? $lastDocument->getStatus() : null;
+            if (is_string($status) && in_array($status, $terminalStatuses, true)) {
+                return $lastDocument;
+            }
+
+            $attempts++;
+            if ($attempts >= $maxAttempts || ((microtime(true) - $startedAt) * 1000) >= $timeoutMs) {
+                throw new \SignWell\Sdk\Errors\WaitForCompletionTimeoutError('Timed out waiting for document completion.', $lastDocument);
+            }
+
+            usleep(max(0, $intervalMs) * 1000);
+        }
+    }
+
+
+    /**
      * Create request for operation 'getDocument'
      *
      * @param  string $id (required)
@@ -1824,15 +1869,16 @@ class DocumentApi
      *
      * @param  int|null $page page (optional, default to 1)
      * @param  int|null $limit limit (optional, default to 10)
+     * @param  string|null $query Raw API filter query. Use AND between filters, for example: \&quot;name:Classic AND status:completed\&quot;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listDocuments'] to see the possible values for this operation
      *
      * @throws \SignWell\Sdk\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \SignWell\Sdk\Models\DocumentListResponse|\SignWell\Sdk\Models\ErrorResponse|\SignWell\Sdk\Models\RateLimitErrorResponse
      */
-    public function listDocuments($page = 1, $limit = 10, string $contentType = self::contentTypes['listDocuments'][0])
+    public function listDocuments($page = 1, $limit = 10, $query = null, string $contentType = self::contentTypes['listDocuments'][0])
     {
-        list($response) = $this->listDocumentsWithHttpInfo($page, $limit, $contentType);
+        list($response) = $this->listDocumentsWithHttpInfo($page, $limit, $query, $contentType);
         return $response;
     }
 
@@ -1843,15 +1889,16 @@ class DocumentApi
      *
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $limit (optional, default to 10)
+     * @param  string|null $query Raw API filter query. Use AND between filters, for example: \&quot;name:Classic AND status:completed\&quot;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listDocuments'] to see the possible values for this operation
      *
      * @throws \SignWell\Sdk\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \SignWell\Sdk\Models\DocumentListResponse|\SignWell\Sdk\Models\ErrorResponse|\SignWell\Sdk\Models\RateLimitErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function listDocumentsWithHttpInfo($page = 1, $limit = 10, string $contentType = self::contentTypes['listDocuments'][0])
+    public function listDocumentsWithHttpInfo($page = 1, $limit = 10, $query = null, string $contentType = self::contentTypes['listDocuments'][0])
     {
-        $request = $this->listDocumentsRequest($page, $limit, $contentType);
+        $request = $this->listDocumentsRequest($page, $limit, $query, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2031,14 +2078,15 @@ class DocumentApi
      *
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $limit (optional, default to 10)
+     * @param  string|null $query Raw API filter query. Use AND between filters, for example: \&quot;name:Classic AND status:completed\&quot;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listDocumentsAsync($page = 1, $limit = 10, string $contentType = self::contentTypes['listDocuments'][0])
+    public function listDocumentsAsync($page = 1, $limit = 10, $query = null, string $contentType = self::contentTypes['listDocuments'][0])
     {
-        return $this->listDocumentsAsyncWithHttpInfo($page, $limit, $contentType)
+        return $this->listDocumentsAsyncWithHttpInfo($page, $limit, $query, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2053,15 +2101,16 @@ class DocumentApi
      *
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $limit (optional, default to 10)
+     * @param  string|null $query Raw API filter query. Use AND between filters, for example: \&quot;name:Classic AND status:completed\&quot;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listDocumentsAsyncWithHttpInfo($page = 1, $limit = 10, string $contentType = self::contentTypes['listDocuments'][0])
+    public function listDocumentsAsyncWithHttpInfo($page = 1, $limit = 10, $query = null, string $contentType = self::contentTypes['listDocuments'][0])
     {
         $returnType = '\SignWell\Sdk\Models\DocumentListResponse';
-        $request = $this->listDocumentsRequest($page, $limit, $contentType);
+        $request = $this->listDocumentsRequest($page, $limit, $query, $contentType);
         $options = $this->createHttpClientOption();
         $this->debugRequest($request);
 
@@ -2084,16 +2133,48 @@ class DocumentApi
     }
 
     /**
+     * Iterate over paginated listDocuments responses.
+     *
+     * @return \Generator<int, mixed>
+     */
+    public function iterateDocumentPages(?int $page = 1, ?int $limit = 50, ?string $query = null, string $contentType = self::contentTypes['listDocuments'][0]): \Generator
+    {
+        $nextPage = $page ?? 1;
+        while ($nextPage !== null) {
+            $response = $this->listDocuments($nextPage, $limit, $query, $contentType);
+            yield $response;
+            $nextPage = is_object($response) && method_exists($response, 'getNextPage') ? $response->getNextPage() : null;
+        }
+    }
+
+    /**
+     * Iterate over all listDocuments items.
+     *
+     * @return \Generator<int, mixed>
+     */
+    public function iterateDocuments(?int $page = 1, ?int $limit = 50, ?string $query = null, string $contentType = self::contentTypes['listDocuments'][0]): \Generator
+    {
+        foreach ($this->iterateDocumentPages($page, $limit, $query, $contentType) as $pageResponse) {
+            $items = is_object($pageResponse) && method_exists($pageResponse, 'getDocuments') ? $pageResponse->getDocuments() : [];
+            foreach ($items ?? [] as $item) {
+                yield $item;
+            }
+        }
+    }
+
+
+    /**
      * Create request for operation 'listDocuments'
      *
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $limit (optional, default to 10)
+     * @param  string|null $query Raw API filter query. Use AND between filters, for example: \&quot;name:Classic AND status:completed\&quot;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listDocuments'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function listDocumentsRequest($page = 1, $limit = 10, string $contentType = self::contentTypes['listDocuments'][0])
+    public function listDocumentsRequest($page = 1, $limit = 10, $query = null, string $contentType = self::contentTypes['listDocuments'][0])
     {
 
         if ($page !== null && $page < 1) {
@@ -2105,6 +2186,10 @@ class DocumentApi
         }
         if ($limit !== null && $limit < 1) {
             throw new \InvalidArgumentException('invalid value for "$limit" when calling DocumentApi.listDocuments, must be bigger than or equal to 1.');
+        }
+
+        if ($query !== null && strlen($query) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$query" when calling DocumentApi.listDocuments, must be bigger than or equal to 1.');
         }
 
 
@@ -2129,6 +2214,15 @@ class DocumentApi
             $limit,
             'limit', // param base name
             'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $query,
+            'query', // param base name
+            'string', // openApiType
             'form', // style
             true, // explode
             false // required
@@ -2462,6 +2556,15 @@ class DocumentApi
     }
 
     /**
+     * Alias for sendDocument.
+     */
+    public function updateDocument($id, $update_document_and_send_request, string $contentType = self::contentTypes['sendDocument'][0])
+    {
+        return $this->sendDocument($id, $update_document_and_send_request, $contentType);
+    }
+
+
+    /**
      * Create request for operation 'sendDocument'
      *
      * @param  string $id (required)
@@ -2713,6 +2816,7 @@ class DocumentApi
                 }
             );
     }
+
 
     /**
      * Create request for operation 'sendReminder'
@@ -3055,6 +3159,7 @@ class DocumentApi
                 }
             );
     }
+
 
     /**
      * Create request for operation 'updateRecipients'

@@ -111,4 +111,18 @@ interface ModelInterface
      * @return bool
      */
     public function isNullableSetToNull(string $property): bool;
+
+    /**
+     * Whether this model wraps a primitive oneOf instance.
+     *
+     * @return bool
+     */
+    public function hasActualInstance(): bool;
+
+    /**
+     * Gets the wrapped primitive oneOf instance when present.
+     *
+     * @return mixed
+     */
+    public function getActualInstance();
 }

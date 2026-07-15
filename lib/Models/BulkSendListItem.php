@@ -294,13 +294,14 @@ class BulkSendListItem implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
@@ -312,6 +313,34 @@ class BulkSendListItem implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('user_id', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('template_ids', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -403,6 +432,7 @@ class BulkSendListItem implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -430,6 +460,7 @@ class BulkSendListItem implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -464,6 +495,7 @@ class BulkSendListItem implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['api_application_id'] = $api_application_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -491,6 +523,7 @@ class BulkSendListItem implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable documents_count cannot be null');
         }
         $this->container['documents_count'] = $documents_count;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -518,6 +551,7 @@ class BulkSendListItem implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable documents_completed cannot be null');
         }
         $this->container['documents_completed'] = $documents_completed;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -545,6 +579,7 @@ class BulkSendListItem implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable documents_not_completed cannot be null');
         }
         $this->container['documents_not_completed'] = $documents_not_completed;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -572,6 +607,7 @@ class BulkSendListItem implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable created_at cannot be null');
         }
         $this->container['created_at'] = $created_at;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -606,6 +642,7 @@ class BulkSendListItem implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['user_id'] = $user_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -633,6 +670,7 @@ class BulkSendListItem implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable status cannot be null');
         }
         $this->container['status'] = $status;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -660,9 +698,14 @@ class BulkSendListItem implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable template_ids cannot be null');
         }
         $this->container['template_ids'] = $template_ids;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

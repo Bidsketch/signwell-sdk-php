@@ -251,17 +251,32 @@ class DocumentResponseFieldsInnerInnerOptionsInner implements ModelInterface, Ar
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('api_id', $data ?? [], null);
         $this->setIfExists('is_other', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -329,6 +344,7 @@ class DocumentResponseFieldsInnerInnerOptionsInner implements ModelInterface, Ar
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -356,6 +372,7 @@ class DocumentResponseFieldsInnerInnerOptionsInner implements ModelInterface, Ar
             throw new \InvalidArgumentException('non-nullable api_id cannot be null');
         }
         $this->container['api_id'] = $api_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -383,9 +400,14 @@ class DocumentResponseFieldsInnerInnerOptionsInner implements ModelInterface, Ar
             throw new \InvalidArgumentException('non-nullable is_other cannot be null');
         }
         $this->container['is_other'] = $is_other;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

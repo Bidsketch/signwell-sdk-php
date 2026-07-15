@@ -246,16 +246,29 @@ class FileInfo implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('pages_number', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
     }
 
     /**
@@ -329,6 +342,7 @@ class FileInfo implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -356,9 +370,14 @@ class FileInfo implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable pages_number cannot be null');
         }
         $this->container['pages_number'] = $pages_number;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

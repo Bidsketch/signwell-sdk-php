@@ -10,6 +10,7 @@ namespace SignWell\Sdk\Laravel;
 use SignWell\Sdk\Client;
 use SignWell\Sdk\Configuration;
 use SignWell\Sdk\Embedded;
+use SignWell\Sdk\Webhook;
 
 final class SignWellManager extends Client
 {
@@ -21,5 +22,11 @@ final class SignWellManager extends Client
     public function embedded(): string
     {
         return Embedded::class;
+    }
+
+    /** @return class-string<Webhook> */
+    public function webhook(): string
+    {
+        return Webhook::class;
     }
 }

@@ -276,13 +276,14 @@ class ApiApplicationResponse implements ModelInterface, ArrayAccess, \JsonSerial
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
@@ -291,6 +292,28 @@ class ApiApplicationResponse implements ModelInterface, ArrayAccess, \JsonSerial
         $this->setIfExists('updated_at', $data ?? [], null);
         $this->setIfExists('owner', $data ?? [], null);
         $this->setIfExists('preferences', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -364,6 +387,7 @@ class ApiApplicationResponse implements ModelInterface, ArrayAccess, \JsonSerial
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -391,6 +415,7 @@ class ApiApplicationResponse implements ModelInterface, ArrayAccess, \JsonSerial
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -425,6 +450,7 @@ class ApiApplicationResponse implements ModelInterface, ArrayAccess, \JsonSerial
             }
         }
         $this->container['callback_urls'] = $callback_urls;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -452,6 +478,7 @@ class ApiApplicationResponse implements ModelInterface, ArrayAccess, \JsonSerial
             throw new \InvalidArgumentException('non-nullable created_at cannot be null');
         }
         $this->container['created_at'] = $created_at;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -479,6 +506,7 @@ class ApiApplicationResponse implements ModelInterface, ArrayAccess, \JsonSerial
             throw new \InvalidArgumentException('non-nullable updated_at cannot be null');
         }
         $this->container['updated_at'] = $updated_at;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -506,6 +534,7 @@ class ApiApplicationResponse implements ModelInterface, ArrayAccess, \JsonSerial
             throw new \InvalidArgumentException('non-nullable owner cannot be null');
         }
         $this->container['owner'] = $owner;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -533,9 +562,14 @@ class ApiApplicationResponse implements ModelInterface, ArrayAccess, \JsonSerial
             throw new \InvalidArgumentException('non-nullable preferences cannot be null');
         }
         $this->container['preferences'] = $preferences;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

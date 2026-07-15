@@ -251,17 +251,32 @@ class DocumentFromTemplateResponseFieldsInnerInnerRecipient implements ModelInte
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('email', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('role', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -335,6 +350,7 @@ class DocumentFromTemplateResponseFieldsInnerInnerRecipient implements ModelInte
             throw new \InvalidArgumentException('non-nullable email cannot be null');
         }
         $this->container['email'] = $email;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -362,6 +378,7 @@ class DocumentFromTemplateResponseFieldsInnerInnerRecipient implements ModelInte
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -389,9 +406,14 @@ class DocumentFromTemplateResponseFieldsInnerInnerRecipient implements ModelInte
             throw new \InvalidArgumentException('non-nullable role cannot be null');
         }
         $this->container['role'] = $role;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

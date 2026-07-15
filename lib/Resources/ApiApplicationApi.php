@@ -260,6 +260,7 @@ class ApiApplicationApi
             );
     }
 
+
     /**
      * Create request for operation 'deleteApiApplication'
      *
@@ -618,6 +619,7 @@ class ApiApplicationApi
                 }
             );
     }
+
 
     /**
      * Create request for operation 'getApiApplication'

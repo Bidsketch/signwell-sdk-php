@@ -288,13 +288,14 @@ class CheckboxGroupInfo implements ModelInterface, ArrayAccess, \JsonSerializabl
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('group_name', $data ?? [], null);
@@ -305,6 +306,32 @@ class CheckboxGroupInfo implements ModelInterface, ArrayAccess, \JsonSerializabl
         $this->setIfExists('min_value', $data ?? [], null);
         $this->setIfExists('max_value', $data ?? [], null);
         $this->setIfExists('exact_value', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -381,6 +408,7 @@ class CheckboxGroupInfo implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -415,6 +443,7 @@ class CheckboxGroupInfo implements ModelInterface, ArrayAccess, \JsonSerializabl
             }
         }
         $this->container['group_name'] = $group_name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -449,6 +478,7 @@ class CheckboxGroupInfo implements ModelInterface, ArrayAccess, \JsonSerializabl
             }
         }
         $this->container['recipient_id'] = $recipient_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -476,6 +506,7 @@ class CheckboxGroupInfo implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable checkbox_ids cannot be null');
         }
         $this->container['checkbox_ids'] = $checkbox_ids;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -503,6 +534,7 @@ class CheckboxGroupInfo implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable validation cannot be null');
         }
         $this->container['validation'] = $validation;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -530,6 +562,7 @@ class CheckboxGroupInfo implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable required cannot be null');
         }
         $this->container['required'] = $required;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -557,6 +590,7 @@ class CheckboxGroupInfo implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable min_value cannot be null');
         }
         $this->container['min_value'] = $min_value;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -584,6 +618,7 @@ class CheckboxGroupInfo implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable max_value cannot be null');
         }
         $this->container['max_value'] = $max_value;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -611,9 +646,14 @@ class CheckboxGroupInfo implements ModelInterface, ArrayAccess, \JsonSerializabl
             throw new \InvalidArgumentException('non-nullable exact_value cannot be null');
         }
         $this->container['exact_value'] = $exact_value;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

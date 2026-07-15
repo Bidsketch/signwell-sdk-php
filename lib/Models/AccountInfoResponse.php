@@ -288,13 +288,14 @@ class AccountInfoResponse implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
@@ -305,6 +306,32 @@ class AccountInfoResponse implements ModelInterface, ArrayAccess, \JsonSerializa
         $this->setIfExists('can_create_completion_document', $data ?? [], null);
         $this->setIfExists('active_users', $data ?? [], null);
         $this->setIfExists('preferences', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -381,6 +408,7 @@ class AccountInfoResponse implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -408,6 +436,7 @@ class AccountInfoResponse implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -435,6 +464,7 @@ class AccountInfoResponse implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable plan_tier cannot be null');
         }
         $this->container['plan_tier'] = $plan_tier;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -462,6 +492,7 @@ class AccountInfoResponse implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable active_templates cannot be null');
         }
         $this->container['active_templates'] = $active_templates;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -489,6 +520,7 @@ class AccountInfoResponse implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable can_create_template cannot be null');
         }
         $this->container['can_create_template'] = $can_create_template;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -516,6 +548,7 @@ class AccountInfoResponse implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable can_create_tracking_document cannot be null');
         }
         $this->container['can_create_tracking_document'] = $can_create_tracking_document;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -543,6 +576,7 @@ class AccountInfoResponse implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable can_create_completion_document cannot be null');
         }
         $this->container['can_create_completion_document'] = $can_create_completion_document;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -570,6 +604,7 @@ class AccountInfoResponse implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable active_users cannot be null');
         }
         $this->container['active_users'] = $active_users;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -597,9 +632,14 @@ class AccountInfoResponse implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable preferences cannot be null');
         }
         $this->container['preferences'] = $preferences;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

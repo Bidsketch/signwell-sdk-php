@@ -8,6 +8,8 @@ use PHPUnit\Framework\TestCase;
 use SignWell\Sdk\Embedded;
 use SignWell\Sdk\Models\DocumentRequest;
 use SignWell\Sdk\Models\DocumentResponse;
+use SignWell\Sdk\Models\FieldsInnerInner;
+use SignWell\Sdk\Models\FieldType;
 use SignWell\Sdk\ObjectSerializer;
 use SignWell\Sdk\Resources\DocumentApi;
 
@@ -92,6 +94,79 @@ final class EmbeddedTest extends TestCase
         $payload = json_decode(json_encode(ObjectSerializer::sanitizeForSerialization($api->captured), JSON_THROW_ON_ERROR), true, flags: JSON_THROW_ON_ERROR);
 
         self::assertSame(base64_encode($pdf), $payload['files'][0]['file_base64']);
+    }
+
+    public function testCheckboxFieldValuesNormalizeToApiWireValues(): void
+    {
+        $trueCheckbox = new FieldsInnerInner([
+            'x' => 20,
+            'y' => 60,
+            'page' => 1,
+            'recipient_id' => '1',
+            'type' => FieldType::CHECKBOX,
+            'value' => true,
+        ]);
+        $falseCheckbox = new FieldsInnerInner([
+            'x' => 20,
+            'y' => 60,
+            'page' => 1,
+            'recipient_id' => '1',
+            'type' => FieldType::CHECKBOX,
+            'value' => 'false',
+        ]);
+        $textField = new FieldsInnerInner([
+            'x' => 20,
+            'y' => 60,
+            'page' => 1,
+            'recipient_id' => '1',
+            'type' => FieldType::TEXT,
+            'value' => 'true',
+        ]);
+
+        self::assertSame('t', $this->serializedFieldValue($trueCheckbox));
+        self::assertSame('f', $this->serializedFieldValue($falseCheckbox));
+        self::assertSame('true', $this->serializedFieldValue($textField));
+
+        $setterCheckbox = new FieldsInnerInner(['type' => FieldType::CHECKBOX]);
+        $setterCheckbox->setValue(true);
+        self::assertSame('t', $this->serializedFieldValue($setterCheckbox));
+
+        $lateTypedCheckbox = new FieldsInnerInner(['value' => true]);
+        $lateTypedCheckbox->setType(FieldType::CHECKBOX);
+        self::assertSame('t', $this->serializedFieldValue($lateTypedCheckbox));
+
+        $setterTextField = new FieldsInnerInner(['type' => FieldType::TEXT]);
+        $setterTextField->setValue('true');
+        self::assertSame('true', $this->serializedFieldValue($setterTextField));
+
+        foreach ([[false, 'f'], ['true', 't'], ['t', 't'], ['f', 'f']] as [$rawValue, $expectedValue]) {
+            $field = new FieldsInnerInner([
+                'type' => FieldType::CHECKBOX,
+                'value' => $rawValue,
+            ]);
+
+            self::assertSame($expectedValue, $this->serializedFieldValue($field));
+        }
+
+        foreach (['yes', 'no', '1', '0'] as $rawValue) {
+            try {
+                new FieldsInnerInner([
+                    'type' => FieldType::CHECKBOX,
+                    'value' => $rawValue,
+                ]);
+                self::fail("Expected ambiguous checkbox value to be rejected: {$rawValue}");
+            } catch (\InvalidArgumentException $error) {
+                self::assertStringContainsString('Checkbox field values', $error->getMessage());
+            }
+
+            $field = new FieldsInnerInner(['type' => FieldType::CHECKBOX]);
+            try {
+                $field->setValue($rawValue);
+                self::fail("Expected ambiguous checkbox setter value to be rejected: {$rawValue}");
+            } catch (\InvalidArgumentException $error) {
+                self::assertStringContainsString('Checkbox field values', $error->getMessage());
+            }
+        }
     }
 
     public function testRejectsMalformedPdfBase64Uploads(): void
@@ -182,5 +257,12 @@ final class EmbeddedTest extends TestCase
         $pdf .= "trailer\n<< /Size " . (count($objects) + 1) . " /Root 1 0 R >>\nstartxref\n" . $xrefOffset . "\n%%EOF\n";
 
         return $pdf;
+    }
+
+    private function serializedFieldValue(FieldsInnerInner $field): mixed
+    {
+        $payload = json_decode(json_encode(ObjectSerializer::sanitizeForSerialization($field), JSON_THROW_ON_ERROR), true, flags: JSON_THROW_ON_ERROR);
+
+        return $payload['value'] ?? null;
     }
 }

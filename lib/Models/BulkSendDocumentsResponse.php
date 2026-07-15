@@ -306,13 +306,14 @@ class BulkSendDocumentsResponse implements ModelInterface, ArrayAccess, \JsonSer
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
@@ -326,6 +327,38 @@ class BulkSendDocumentsResponse implements ModelInterface, ArrayAccess, \JsonSer
         $this->setIfExists('previous_page', $data ?? [], null);
         $this->setIfExists('total_count', $data ?? [], null);
         $this->setIfExists('total_pages', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -408,6 +441,7 @@ class BulkSendDocumentsResponse implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -435,6 +469,7 @@ class BulkSendDocumentsResponse implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -469,6 +504,7 @@ class BulkSendDocumentsResponse implements ModelInterface, ArrayAccess, \JsonSer
             }
         }
         $this->container['api_application_id'] = $api_application_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -496,6 +532,7 @@ class BulkSendDocumentsResponse implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable created_at cannot be null');
         }
         $this->container['created_at'] = $created_at;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -530,6 +567,7 @@ class BulkSendDocumentsResponse implements ModelInterface, ArrayAccess, \JsonSer
             }
         }
         $this->container['user_id'] = $user_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -557,6 +595,7 @@ class BulkSendDocumentsResponse implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable status cannot be null');
         }
         $this->container['status'] = $status;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -584,6 +623,7 @@ class BulkSendDocumentsResponse implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable documents cannot be null');
         }
         $this->container['documents'] = $documents;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -611,6 +651,7 @@ class BulkSendDocumentsResponse implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable current_page cannot be null');
         }
         $this->container['current_page'] = $current_page;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -645,6 +686,7 @@ class BulkSendDocumentsResponse implements ModelInterface, ArrayAccess, \JsonSer
             }
         }
         $this->container['next_page'] = $next_page;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -679,6 +721,7 @@ class BulkSendDocumentsResponse implements ModelInterface, ArrayAccess, \JsonSer
             }
         }
         $this->container['previous_page'] = $previous_page;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -706,6 +749,7 @@ class BulkSendDocumentsResponse implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable total_count cannot be null');
         }
         $this->container['total_count'] = $total_count;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -733,9 +777,14 @@ class BulkSendDocumentsResponse implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable total_pages cannot be null');
         }
         $this->container['total_pages'] = $total_pages;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

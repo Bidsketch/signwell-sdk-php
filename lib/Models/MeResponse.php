@@ -276,13 +276,14 @@ class MeResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('role', $data ?? [], null);
@@ -291,6 +292,28 @@ class MeResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('account', $data ?? [], null);
         $this->setIfExists('workspace', $data ?? [], null);
         $this->setIfExists('contact', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -376,6 +399,7 @@ class MeResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -403,6 +427,7 @@ class MeResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable role cannot be null');
         }
         $this->container['role'] = $role;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -430,6 +455,7 @@ class MeResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable archived cannot be null');
         }
         $this->container['archived'] = $archived;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -457,6 +483,7 @@ class MeResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable user cannot be null');
         }
         $this->container['user'] = $user;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -484,6 +511,7 @@ class MeResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable account cannot be null');
         }
         $this->container['account'] = $account;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -511,6 +539,7 @@ class MeResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable workspace cannot be null');
         }
         $this->container['workspace'] = $workspace;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -538,9 +567,14 @@ class MeResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable contact cannot be null');
         }
         $this->container['contact'] = $contact;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

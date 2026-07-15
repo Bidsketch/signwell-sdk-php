@@ -2,21 +2,32 @@ name: CI
 
 on:
   pull_request:
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
 
 jobs:
-  canary:
-    name: PHP SDK canary
+  validate:
+    name: PHP ${{ matrix.php-version }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version:
+          - '8.2'
+          - '8.3'
+          - '8.4'
+
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: ${{ matrix.php-version }}
           extensions: curl, json, mbstring
           coverage: none
           tools: composer:v2
@@ -27,8 +38,19 @@ jobs:
       - name: Validate Composer metadata
         run: composer validate --strict
 
-      - name: Run compatibility canaries
-        run: composer test
+      - name: Run quality checks
+        run: composer check
 
       - name: Audit runtime dependencies
         run: composer audit --no-interaction --no-dev
+
+      - name: Build package archive
+        run: |
+          set -euo pipefail
+          mkdir -p build
+          composer archive --format=zip --file=build/signwell-sdk-php
+          unzip -Z1 build/signwell-sdk-php.zip | tee build/archive-files.txt
+          if grep -E '(^|/)(\.github/|\.openapi-generator/|\.openapi-generator-ignore$|\.php-cs-fixer\.dist\.php$|composer\.lock$|openapi\.yaml$|phpstan\.neon$|phpunit\.xml\.dist$|test/|vendor/)' build/archive-files.txt; then
+            echo "::error::Archive contains development or generator-only files."
+            exit 1
+          fi

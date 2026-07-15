@@ -395,6 +395,7 @@ class WebhooksApi
             );
     }
 
+
     /**
      * Create request for operation 'createWebhook'
      *
@@ -619,6 +620,7 @@ class WebhooksApi
                 }
             );
     }
+
 
     /**
      * Create request for operation 'deleteWebhook'
@@ -939,6 +941,7 @@ class WebhooksApi
                 }
             );
     }
+
 
     /**
      * Create request for operation 'listWebhooks'

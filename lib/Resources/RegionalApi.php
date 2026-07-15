@@ -295,6 +295,7 @@ class RegionalApi
             );
     }
 
+
     /**
      * Create request for operation 'getNom151Certificate'
      *

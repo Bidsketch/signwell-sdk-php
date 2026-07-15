@@ -347,13 +347,14 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('x', $data ?? [], null);
         $this->setIfExists('y', $data ?? [], null);
@@ -374,6 +375,53 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('options', $data ?? [], null);
         $this->setIfExists('default_option', $data ?? [], null);
         $this->setIfExists('allow_other', $data ?? [], false);
+        $this->normalizeCheckboxValue();
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -456,6 +504,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable x cannot be null');
         }
         $this->container['x'] = $x;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -483,6 +532,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable y cannot be null');
         }
         $this->container['y'] = $y;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -510,6 +560,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable page cannot be null');
         }
         $this->container['page'] = $page;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -537,6 +588,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable recipient_id cannot be null');
         }
         $this->container['recipient_id'] = $recipient_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -564,6 +616,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable type cannot be null');
         }
         $this->container['type'] = $type;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -591,6 +644,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable required cannot be null');
         }
         $this->container['required'] = $required;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -618,6 +672,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable label cannot be null');
         }
         $this->container['label'] = $label;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -645,6 +700,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable value cannot be null');
         }
         $this->container['value'] = $value;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -672,6 +728,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable api_id cannot be null');
         }
         $this->container['api_id'] = $api_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -699,6 +756,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -726,6 +784,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable validation cannot be null');
         }
         $this->container['validation'] = $validation;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -753,6 +812,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable fixed_width cannot be null');
         }
         $this->container['fixed_width'] = $fixed_width;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -780,6 +840,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable lock_sign_date cannot be null');
         }
         $this->container['lock_sign_date'] = $lock_sign_date;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -807,6 +868,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable date_format cannot be null');
         }
         $this->container['date_format'] = $date_format;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -834,6 +896,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable height cannot be null');
         }
         $this->container['height'] = $height;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -861,6 +924,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable width cannot be null');
         }
         $this->container['width'] = $width;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -888,6 +952,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable options cannot be null');
         }
         $this->container['options'] = $options;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -915,6 +980,7 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable default_option cannot be null');
         }
         $this->container['default_option'] = $default_option;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -942,9 +1008,47 @@ class FieldsInnerInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable allow_other cannot be null');
         }
         $this->container['allow_other'] = $allow_other;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+        $this->normalizeCheckboxValue();
+    }
+
+    private function normalizeCheckboxValue(): void
+    {
+        if (($this->container['type'] ?? null) !== 'checkbox' || !array_key_exists('value', $this->container) || $this->container['value'] === null) {
+            return;
+        }
+
+        $this->container['value'] = self::normalizeCheckboxScalar($this->container['value']);
+    }
+
+    private static function normalizeCheckboxScalar($value): string
+    {
+        if (is_object($value) && method_exists($value, 'hasActualInstance') && $value->hasActualInstance()) {
+            $value = $value->getActualInstance();
+        }
+
+        if (is_bool($value)) {
+            return $value ? 't' : 'f';
+        }
+
+        if (is_string($value)) {
+            $normalized = strtolower(trim($value));
+            if ($normalized === 'true' || $normalized === 't') {
+                return 't';
+            }
+            if ($normalized === 'false' || $normalized === 'f') {
+                return 'f';
+            }
+        }
+
+        throw new \InvalidArgumentException('Checkbox field values must be boolean or one of "true", "false", "t", or "f".');
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

@@ -269,13 +269,14 @@ class UpdateRecipientsMapInner implements ModelInterface, ArrayAccess, \JsonSeri
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
@@ -283,6 +284,26 @@ class UpdateRecipientsMapInner implements ModelInterface, ArrayAccess, \JsonSeri
         $this->setIfExists('subject', $data ?? [], null);
         $this->setIfExists('message', $data ?? [], null);
         $this->setIfExists('passcode', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -359,6 +380,7 @@ class UpdateRecipientsMapInner implements ModelInterface, ArrayAccess, \JsonSeri
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -386,6 +408,7 @@ class UpdateRecipientsMapInner implements ModelInterface, ArrayAccess, \JsonSeri
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -413,6 +436,7 @@ class UpdateRecipientsMapInner implements ModelInterface, ArrayAccess, \JsonSeri
             throw new \InvalidArgumentException('non-nullable email cannot be null');
         }
         $this->container['email'] = $email;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -440,6 +464,7 @@ class UpdateRecipientsMapInner implements ModelInterface, ArrayAccess, \JsonSeri
             throw new \InvalidArgumentException('non-nullable subject cannot be null');
         }
         $this->container['subject'] = $subject;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -467,6 +492,7 @@ class UpdateRecipientsMapInner implements ModelInterface, ArrayAccess, \JsonSeri
             throw new \InvalidArgumentException('non-nullable message cannot be null');
         }
         $this->container['message'] = $message;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -494,9 +520,14 @@ class UpdateRecipientsMapInner implements ModelInterface, ArrayAccess, \JsonSeri
             throw new \InvalidArgumentException('non-nullable passcode cannot be null');
         }
         $this->container['passcode'] = $passcode;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

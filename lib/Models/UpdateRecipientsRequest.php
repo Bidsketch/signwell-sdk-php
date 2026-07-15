@@ -239,15 +239,26 @@ class UpdateRecipientsRequest implements ModelInterface, ArrayAccess, \JsonSeria
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('recipients', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
     }
 
     /**
@@ -318,9 +329,14 @@ class UpdateRecipientsRequest implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable recipients cannot be null');
         }
         $this->container['recipients'] = $recipients;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

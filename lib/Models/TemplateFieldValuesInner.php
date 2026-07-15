@@ -245,16 +245,29 @@ class TemplateFieldValuesInner implements ModelInterface, ArrayAccess, \JsonSeri
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('api_id', $data ?? [], null);
         $this->setIfExists('value', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
     }
 
     /**
@@ -328,6 +341,7 @@ class TemplateFieldValuesInner implements ModelInterface, ArrayAccess, \JsonSeri
             throw new \InvalidArgumentException('non-nullable api_id cannot be null');
         }
         $this->container['api_id'] = $api_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -355,9 +369,14 @@ class TemplateFieldValuesInner implements ModelInterface, ArrayAccess, \JsonSeri
             throw new \InvalidArgumentException('non-nullable value cannot be null');
         }
         $this->container['value'] = $value;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

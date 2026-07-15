@@ -245,16 +245,29 @@ class BulkSendCsvRequest implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('template_ids', $data ?? [], null);
         $this->setIfExists('bulk_send_csv', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
     }
 
     /**
@@ -328,6 +341,7 @@ class BulkSendCsvRequest implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable template_ids cannot be null');
         }
         $this->container['template_ids'] = $template_ids;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -355,9 +369,14 @@ class BulkSendCsvRequest implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable bulk_send_csv cannot be null');
         }
         $this->container['bulk_send_csv'] = $bulk_send_csv;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

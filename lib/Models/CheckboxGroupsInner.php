@@ -281,13 +281,14 @@ class CheckboxGroupsInner implements ModelInterface, ArrayAccess, \JsonSerializa
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('group_name', $data ?? [], null);
         $this->setIfExists('recipient_id', $data ?? [], null);
@@ -297,6 +298,30 @@ class CheckboxGroupsInner implements ModelInterface, ArrayAccess, \JsonSerializa
         $this->setIfExists('min_value', $data ?? [], null);
         $this->setIfExists('max_value', $data ?? [], null);
         $this->setIfExists('exact_value', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -373,6 +398,7 @@ class CheckboxGroupsInner implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable group_name cannot be null');
         }
         $this->container['group_name'] = $group_name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -400,6 +426,7 @@ class CheckboxGroupsInner implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable recipient_id cannot be null');
         }
         $this->container['recipient_id'] = $recipient_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -427,6 +454,7 @@ class CheckboxGroupsInner implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable checkbox_ids cannot be null');
         }
         $this->container['checkbox_ids'] = $checkbox_ids;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -454,6 +482,7 @@ class CheckboxGroupsInner implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable validation cannot be null');
         }
         $this->container['validation'] = $validation;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -481,6 +510,7 @@ class CheckboxGroupsInner implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable required cannot be null');
         }
         $this->container['required'] = $required;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -508,6 +538,7 @@ class CheckboxGroupsInner implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable min_value cannot be null');
         }
         $this->container['min_value'] = $min_value;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -535,6 +566,7 @@ class CheckboxGroupsInner implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable max_value cannot be null');
         }
         $this->container['max_value'] = $max_value;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -562,9 +594,14 @@ class CheckboxGroupsInner implements ModelInterface, ArrayAccess, \JsonSerializa
             throw new \InvalidArgumentException('non-nullable exact_value cannot be null');
         }
         $this->container['exact_value'] = $exact_value;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *
