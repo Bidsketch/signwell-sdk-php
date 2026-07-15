@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static \SignWell\Sdk\Resources\RegionalApi regional()
  * @method static \SignWell\Sdk\Resources\MeApi me()
  * @method static \SignWell\Sdk\Resources\ApiApplicationApi apiApplications()
+ * @method static \SignWell\Sdk\Resources\WebhooksApi webhooks()
  * @method static mixed createDocument(array $params)
  * @method static mixed createDocumentFromTemplate(array $params)
  * @method static mixed sendDocument(string $id, array $params = [])
@@ -37,6 +38,7 @@ use Illuminate\Support\Facades\Facade;
  * @method static mixed getBulkSendCsvTemplate(array $templateIds, bool|null $base64 = null)
  * @method static mixed getMe()
  * @method static class-string<\SignWell\Sdk\Embedded> embedded()
+ * @method static class-string<\SignWell\Sdk\Webhook> webhook()
  */
 final class SignWell extends Facade
 {

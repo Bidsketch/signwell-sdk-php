@@ -335,13 +335,14 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
@@ -360,6 +361,48 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
         $this->setIfExists('passcode', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('placeholder_name', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -430,6 +473,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -457,6 +501,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -484,6 +529,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             throw new \InvalidArgumentException('non-nullable email cannot be null');
         }
         $this->container['email'] = $email;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -511,6 +557,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             throw new \InvalidArgumentException('non-nullable role cannot be null');
         }
         $this->container['role'] = $role;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -545,6 +592,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             }
         }
         $this->container['message'] = $message;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -579,6 +627,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             }
         }
         $this->container['subject'] = $subject;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -613,6 +662,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             }
         }
         $this->container['send_email'] = $send_email;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -647,6 +697,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             }
         }
         $this->container['send_email_delay'] = $send_email_delay;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -674,6 +725,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             throw new \InvalidArgumentException('non-nullable signing_order cannot be null');
         }
         $this->container['signing_order'] = $signing_order;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -708,6 +760,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             }
         }
         $this->container['signing_url'] = $signing_url;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -742,6 +795,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             }
         }
         $this->container['embedded_signing_url'] = $embedded_signing_url;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -776,6 +830,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             }
         }
         $this->container['bounced'] = $bounced;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -810,6 +865,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             }
         }
         $this->container['bounced_details'] = $bounced_details;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -837,6 +893,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             throw new \InvalidArgumentException('non-nullable attachment_requests cannot be null');
         }
         $this->container['attachment_requests'] = $attachment_requests;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -871,6 +928,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             }
         }
         $this->container['passcode'] = $passcode;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -898,6 +956,7 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             throw new \InvalidArgumentException('non-nullable status cannot be null');
         }
         $this->container['status'] = $status;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -925,9 +984,14 @@ class DocumentFromTemplateResponseRecipientsInner implements ModelInterface, Arr
             throw new \InvalidArgumentException('non-nullable placeholder_name cannot be null');
         }
         $this->container['placeholder_name'] = $placeholder_name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

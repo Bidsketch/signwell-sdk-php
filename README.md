@@ -54,10 +54,13 @@ try {
     // Document was not found.
 } catch (Errors\RateLimitError $error) {
     // Retry after backing off.
+    $rateLimit = $error->getRateLimit();
 } catch (Errors\ApiError $error) {
     // Generic SDK error.
 }
 ```
+
+HTTP 403 responses raise `Errors\PermissionDeniedError`, which remains compatible with `Errors\ForbiddenError` catches. Transport failures raise `Errors\ApiConnectionError`; `Errors\TransportError` is available as an additive alias. Local required-argument validation uses PHP's native `\InvalidArgumentException`.
 
 ## Binary And JSON Response Modes
 

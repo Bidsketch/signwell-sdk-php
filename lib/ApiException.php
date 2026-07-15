@@ -54,6 +54,8 @@ class ApiException extends Errors\ApiError
      */
     protected $responseObject;
 
+    protected ?Errors\RateLimitInfo $rateLimit;
+
     /**
      * @param string $message
      * @param int $code
@@ -65,6 +67,7 @@ class ApiException extends Errors\ApiError
         parent::__construct($message, (int) $code, $previous);
         $this->responseHeaders = $responseHeaders;
         $this->responseBody = $responseBody;
+        $this->rateLimit = Errors\RateLimitInfo::fromHeaders($responseHeaders);
     }
 
     /**
@@ -81,7 +84,7 @@ class ApiException extends Errors\ApiError
         $class = match ($code) {
             400 => Errors\BadRequestError::class,
             401 => Errors\AuthenticationError::class,
-            403 => Errors\ForbiddenError::class,
+            403 => Errors\PermissionDeniedError::class,
             404 => Errors\NotFoundError::class,
             409 => Errors\ConflictError::class,
             422 => Errors\UnprocessableEntityError::class,
@@ -127,5 +130,10 @@ class ApiException extends Errors\ApiError
     public function getResponseObject()
     {
         return $this->responseObject;
+    }
+
+    public function getRateLimit(): ?Errors\RateLimitInfo
+    {
+        return $this->rateLimit;
     }
 }

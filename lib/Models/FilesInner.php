@@ -251,17 +251,32 @@ class FilesInner implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('file_url', $data ?? [], null);
         $this->setIfExists('file_base64', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -332,6 +347,7 @@ class FilesInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -359,6 +375,7 @@ class FilesInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable file_url cannot be null');
         }
         $this->container['file_url'] = $file_url;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -386,9 +403,14 @@ class FilesInner implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable file_base64 cannot be null');
         }
         $this->container['file_base64'] = $file_base64;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

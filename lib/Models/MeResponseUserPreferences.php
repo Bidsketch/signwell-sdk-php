@@ -251,17 +251,32 @@ class MeResponseUserPreferences implements ModelInterface, ArrayAccess, \JsonSer
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('sales_document', $data ?? [], null);
         $this->setIfExists('time_zone', $data ?? [], null);
         $this->setIfExists('smart_fields', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -329,6 +344,7 @@ class MeResponseUserPreferences implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable sales_document cannot be null');
         }
         $this->container['sales_document'] = $sales_document;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -356,6 +372,7 @@ class MeResponseUserPreferences implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable time_zone cannot be null');
         }
         $this->container['time_zone'] = $time_zone;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -383,9 +400,14 @@ class MeResponseUserPreferences implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable smart_fields cannot be null');
         }
         $this->container['smart_fields'] = $smart_fields;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

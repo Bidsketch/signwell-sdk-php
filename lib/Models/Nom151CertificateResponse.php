@@ -240,15 +240,26 @@ class Nom151CertificateResponse implements ModelInterface, ArrayAccess, \JsonSer
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('nom151', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
     }
 
     /**
@@ -319,9 +330,14 @@ class Nom151CertificateResponse implements ModelInterface, ArrayAccess, \JsonSer
             throw new \InvalidArgumentException('non-nullable nom151 cannot be null');
         }
         $this->container['nom151'] = $nom151;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

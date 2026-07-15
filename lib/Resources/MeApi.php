@@ -385,6 +385,7 @@ class MeApi
             );
     }
 
+
     /**
      * Create request for operation 'getMe'
      *

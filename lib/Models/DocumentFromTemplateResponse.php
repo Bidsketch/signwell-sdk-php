@@ -455,13 +455,14 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('test_mode', $data ?? [], null);
         $this->setIfExists('id', $data ?? [], null);
@@ -500,6 +501,88 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
         $this->setIfExists('allow_reassign', $data ?? [], null);
         $this->setIfExists('labels', $data ?? [], null);
         $this->setIfExists('checkbox_groups', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -573,6 +656,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable test_mode cannot be null');
         }
         $this->container['test_mode'] = $test_mode;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -600,6 +684,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -627,6 +712,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable template_id cannot be null');
         }
         $this->container['template_id'] = $template_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -654,6 +740,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable template_ids cannot be null');
         }
         $this->container['template_ids'] = $template_ids;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -688,6 +775,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             }
         }
         $this->container['api_application_id'] = $api_application_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -715,6 +803,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable requester_email_address cannot be null');
         }
         $this->container['requester_email_address'] = $requester_email_address;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -749,6 +838,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             }
         }
         $this->container['custom_requester_name'] = $custom_requester_name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -783,6 +873,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             }
         }
         $this->container['custom_requester_email'] = $custom_requester_email;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -810,6 +901,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -837,6 +929,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable subject cannot be null');
         }
         $this->container['subject'] = $subject;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -864,6 +957,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable message cannot be null');
         }
         $this->container['message'] = $message;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -898,6 +992,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             }
         }
         $this->container['metadata'] = $metadata;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -925,6 +1020,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable created_at cannot be null');
         }
         $this->container['created_at'] = $created_at;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -952,6 +1048,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable updated_at cannot be null');
         }
         $this->container['updated_at'] = $updated_at;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -979,6 +1076,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable recipients cannot be null');
         }
         $this->container['recipients'] = $recipients;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1006,6 +1104,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable status cannot be null');
         }
         $this->container['status'] = $status;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1033,6 +1132,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable reminders cannot be null');
         }
         $this->container['reminders'] = $reminders;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1060,6 +1160,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable archived cannot be null');
         }
         $this->container['archived'] = $archived;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1087,6 +1188,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable embedded_signing cannot be null');
         }
         $this->container['embedded_signing'] = $embedded_signing;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1114,6 +1216,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable embedded_edit_url cannot be null');
         }
         $this->container['embedded_edit_url'] = $embedded_edit_url;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1148,6 +1251,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             }
         }
         $this->container['embedded_preview_url'] = $embedded_preview_url;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1175,6 +1279,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable apply_signing_order cannot be null');
         }
         $this->container['apply_signing_order'] = $apply_signing_order;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1209,6 +1314,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             }
         }
         $this->container['redirect_url'] = $redirect_url;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1243,6 +1349,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             }
         }
         $this->container['decline_redirect_url'] = $decline_redirect_url;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1270,6 +1377,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable language cannot be null');
         }
         $this->container['language'] = $language;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1297,6 +1405,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable expires_in cannot be null');
         }
         $this->container['expires_in'] = $expires_in;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1331,6 +1440,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             }
         }
         $this->container['decline_message'] = $decline_message;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1365,6 +1475,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             }
         }
         $this->container['error_message'] = $error_message;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1392,6 +1503,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable embedded_signing_notifications cannot be null');
         }
         $this->container['embedded_signing_notifications'] = $embedded_signing_notifications;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1419,6 +1531,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable attachment_requests cannot be null');
         }
         $this->container['attachment_requests'] = $attachment_requests;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1446,6 +1559,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable files cannot be null');
         }
         $this->container['files'] = $files;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1473,6 +1587,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable copied_contacts cannot be null');
         }
         $this->container['copied_contacts'] = $copied_contacts;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1500,6 +1615,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable fields cannot be null');
         }
         $this->container['fields'] = $fields;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1534,6 +1650,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             }
         }
         $this->container['allow_decline'] = $allow_decline;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1568,6 +1685,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             }
         }
         $this->container['allow_reassign'] = $allow_reassign;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1595,6 +1713,7 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable labels cannot be null');
         }
         $this->container['labels'] = $labels;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -1622,9 +1741,14 @@ class DocumentFromTemplateResponse implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable checkbox_groups cannot be null');
         }
         $this->container['checkbox_groups'] = $checkbox_groups;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

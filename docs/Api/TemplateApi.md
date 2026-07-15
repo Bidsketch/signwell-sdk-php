@@ -199,7 +199,7 @@ try {
 ## `listTemplates()`
 
 ```php
-listTemplates($page, $limit): \SignWell\Sdk\Models\DocumentTemplateListResponse
+listTemplates($page, $limit, $query): \SignWell\Sdk\Models\DocumentTemplateListResponse
 ```
 
 List Templates
@@ -227,9 +227,10 @@ $apiInstance = new SignWell\Sdk\Resources\TemplateApi(
 );
 $page = 1; // int
 $limit = 10; // int
+$query = 'query_example'; // string | Raw API filter query. Use AND between filters, for example: \"name:Classic AND status:Available\".
 
 try {
-    $result = $apiInstance->listTemplates($page, $limit);
+    $result = $apiInstance->listTemplates($page, $limit, $query);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling TemplateApi->listTemplates: ', $e->getMessage(), PHP_EOL;
@@ -242,6 +243,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **page** | **int**|  | [optional] [default to 1] |
 | **limit** | **int**|  | [optional] [default to 10] |
+| **query** | **string**| Raw API filter query. Use AND between filters, for example: \&quot;name:Classic AND status:Available\&quot;. | [optional] |
 
 ### Return type
 

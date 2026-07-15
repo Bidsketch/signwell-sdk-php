@@ -293,13 +293,14 @@ class CreateBulkSendRequest implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('template_ids', $data ?? [], null);
         $this->setIfExists('bulk_send_csv', $data ?? [], null);
@@ -311,6 +312,34 @@ class CreateBulkSendRequest implements ModelInterface, ArrayAccess, \JsonSeriali
         $this->setIfExists('apply_signing_order', $data ?? [], false);
         $this->setIfExists('custom_requester_name', $data ?? [], null);
         $this->setIfExists('custom_requester_email', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -384,6 +413,7 @@ class CreateBulkSendRequest implements ModelInterface, ArrayAccess, \JsonSeriali
             throw new \InvalidArgumentException('non-nullable template_ids cannot be null');
         }
         $this->container['template_ids'] = $template_ids;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -411,6 +441,7 @@ class CreateBulkSendRequest implements ModelInterface, ArrayAccess, \JsonSeriali
             throw new \InvalidArgumentException('non-nullable bulk_send_csv cannot be null');
         }
         $this->container['bulk_send_csv'] = $bulk_send_csv;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -438,6 +469,7 @@ class CreateBulkSendRequest implements ModelInterface, ArrayAccess, \JsonSeriali
             throw new \InvalidArgumentException('non-nullable skip_row_errors cannot be null');
         }
         $this->container['skip_row_errors'] = $skip_row_errors;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -465,6 +497,7 @@ class CreateBulkSendRequest implements ModelInterface, ArrayAccess, \JsonSeriali
             throw new \InvalidArgumentException('non-nullable api_application_id cannot be null');
         }
         $this->container['api_application_id'] = $api_application_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -492,6 +525,7 @@ class CreateBulkSendRequest implements ModelInterface, ArrayAccess, \JsonSeriali
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -519,6 +553,7 @@ class CreateBulkSendRequest implements ModelInterface, ArrayAccess, \JsonSeriali
             throw new \InvalidArgumentException('non-nullable subject cannot be null');
         }
         $this->container['subject'] = $subject;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -546,6 +581,7 @@ class CreateBulkSendRequest implements ModelInterface, ArrayAccess, \JsonSeriali
             throw new \InvalidArgumentException('non-nullable message cannot be null');
         }
         $this->container['message'] = $message;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -573,6 +609,7 @@ class CreateBulkSendRequest implements ModelInterface, ArrayAccess, \JsonSeriali
             throw new \InvalidArgumentException('non-nullable apply_signing_order cannot be null');
         }
         $this->container['apply_signing_order'] = $apply_signing_order;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -600,6 +637,7 @@ class CreateBulkSendRequest implements ModelInterface, ArrayAccess, \JsonSeriali
             throw new \InvalidArgumentException('non-nullable custom_requester_name cannot be null');
         }
         $this->container['custom_requester_name'] = $custom_requester_name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -627,9 +665,14 @@ class CreateBulkSendRequest implements ModelInterface, ArrayAccess, \JsonSeriali
             throw new \InvalidArgumentException('non-nullable custom_requester_email cannot be null');
         }
         $this->container['custom_requester_email'] = $custom_requester_email;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

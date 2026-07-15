@@ -251,17 +251,32 @@ class AttachmentRequestsInner implements ModelInterface, ArrayAccess, \JsonSeria
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('recipient_id', $data ?? [], null);
         $this->setIfExists('required', $data ?? [], true);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -335,6 +350,7 @@ class AttachmentRequestsInner implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -362,6 +378,7 @@ class AttachmentRequestsInner implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable recipient_id cannot be null');
         }
         $this->container['recipient_id'] = $recipient_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -389,9 +406,14 @@ class AttachmentRequestsInner implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable required cannot be null');
         }
         $this->container['required'] = $required;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

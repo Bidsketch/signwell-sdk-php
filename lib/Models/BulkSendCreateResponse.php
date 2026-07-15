@@ -276,13 +276,14 @@ class BulkSendCreateResponse implements ModelInterface, ArrayAccess, \JsonSerial
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('template_ids', $data ?? [], null);
@@ -291,6 +292,28 @@ class BulkSendCreateResponse implements ModelInterface, ArrayAccess, \JsonSerial
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('user_id', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -373,6 +396,7 @@ class BulkSendCreateResponse implements ModelInterface, ArrayAccess, \JsonSerial
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -400,6 +424,7 @@ class BulkSendCreateResponse implements ModelInterface, ArrayAccess, \JsonSerial
             throw new \InvalidArgumentException('non-nullable template_ids cannot be null');
         }
         $this->container['template_ids'] = $template_ids;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -434,6 +459,7 @@ class BulkSendCreateResponse implements ModelInterface, ArrayAccess, \JsonSerial
             }
         }
         $this->container['api_application_id'] = $api_application_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -461,6 +487,7 @@ class BulkSendCreateResponse implements ModelInterface, ArrayAccess, \JsonSerial
             throw new \InvalidArgumentException('non-nullable documents_count cannot be null');
         }
         $this->container['documents_count'] = $documents_count;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -488,6 +515,7 @@ class BulkSendCreateResponse implements ModelInterface, ArrayAccess, \JsonSerial
             throw new \InvalidArgumentException('non-nullable created_at cannot be null');
         }
         $this->container['created_at'] = $created_at;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -522,6 +550,7 @@ class BulkSendCreateResponse implements ModelInterface, ArrayAccess, \JsonSerial
             }
         }
         $this->container['user_id'] = $user_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -549,9 +578,14 @@ class BulkSendCreateResponse implements ModelInterface, ArrayAccess, \JsonSerial
             throw new \InvalidArgumentException('non-nullable status cannot be null');
         }
         $this->container['status'] = $status;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

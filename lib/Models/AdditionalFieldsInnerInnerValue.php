@@ -241,13 +241,38 @@ class AdditionalFieldsInnerInnerValue implements ModelInterface, ArrayAccess, \J
     protected $container = [];
 
     /**
+     * Scalar value carried by primitive oneOf wrapper models.
+     *
+     * @var mixed
+     */
+    protected $actualInstance;
+
+    protected bool $actualInstanceSet = false;
+
+    /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
+        if ($data !== null && !is_array($data)) {
+            $this->actualInstance = $data;
+            $this->actualInstanceSet = true;
+            return;
+        }
+
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return $this->actualInstanceSet;
+    }
+
+    public function getActualInstance()
+    {
+        return $this->actualInstance;
     }
 
     /**
@@ -289,6 +314,10 @@ class AdditionalFieldsInnerInnerValue implements ModelInterface, ArrayAccess, \J
     public function valid()
     {
         return count($this->listInvalidProperties()) === 0;
+    }
+
+    private function normalizeAfterSet(): void
+    {
     }
 
     /**

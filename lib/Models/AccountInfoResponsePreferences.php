@@ -317,13 +317,14 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('date_format', $data ?? [], null);
         $this->setIfExists('days_until_links_expire', $data ?? [], null);
@@ -339,6 +340,42 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
         $this->setIfExists('separate_audit_pdf', $data ?? [], null);
         $this->setIfExists('separate_completed_file', $data ?? [], null);
         $this->setIfExists('enable_nom151_compliance', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -406,6 +443,7 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
             throw new \InvalidArgumentException('non-nullable date_format cannot be null');
         }
         $this->container['date_format'] = $date_format;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -433,6 +471,7 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
             throw new \InvalidArgumentException('non-nullable days_until_links_expire cannot be null');
         }
         $this->container['days_until_links_expire'] = $days_until_links_expire;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -460,6 +499,7 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
             throw new \InvalidArgumentException('non-nullable disable_apply_everywhere cannot be null');
         }
         $this->container['disable_apply_everywhere'] = $disable_apply_everywhere;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -487,6 +527,7 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
             throw new \InvalidArgumentException('non-nullable disable_apply_everywhere_effective cannot be null');
         }
         $this->container['disable_apply_everywhere_effective'] = $disable_apply_everywhere_effective;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -514,6 +555,7 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
             throw new \InvalidArgumentException('non-nullable disable_drawn_signatures cannot be null');
         }
         $this->container['disable_drawn_signatures'] = $disable_drawn_signatures;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -541,6 +583,7 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
             throw new \InvalidArgumentException('non-nullable disable_typed_signatures cannot be null');
         }
         $this->container['disable_typed_signatures'] = $disable_typed_signatures;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -568,6 +611,7 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
             throw new \InvalidArgumentException('non-nullable disable_uploaded_signatures cannot be null');
         }
         $this->container['disable_uploaded_signatures'] = $disable_uploaded_signatures;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -595,6 +639,7 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
             throw new \InvalidArgumentException('non-nullable enable_redirect cannot be null');
         }
         $this->container['enable_redirect'] = $enable_redirect;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -622,6 +667,7 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
             throw new \InvalidArgumentException('non-nullable hide_document_id_in_audit cannot be null');
         }
         $this->container['hide_document_id_in_audit'] = $hide_document_id_in_audit;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -649,6 +695,7 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
             throw new \InvalidArgumentException('non-nullable mute_branding cannot be null');
         }
         $this->container['mute_branding'] = $mute_branding;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -683,6 +730,7 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
             }
         }
         $this->container['redirect_url'] = $redirect_url;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -710,6 +758,7 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
             throw new \InvalidArgumentException('non-nullable separate_audit_pdf cannot be null');
         }
         $this->container['separate_audit_pdf'] = $separate_audit_pdf;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -737,6 +786,7 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
             throw new \InvalidArgumentException('non-nullable separate_completed_file cannot be null');
         }
         $this->container['separate_completed_file'] = $separate_completed_file;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -764,9 +814,14 @@ class AccountInfoResponsePreferences implements ModelInterface, ArrayAccess, \Js
             throw new \InvalidArgumentException('non-nullable enable_nom151_compliance cannot be null');
         }
         $this->container['enable_nom151_compliance'] = $enable_nom151_compliance;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

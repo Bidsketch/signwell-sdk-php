@@ -263,19 +263,38 @@ class ApiApplicationResponsePreferences implements ModelInterface, ArrayAccess, 
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('button_text_color', $data ?? [], null);
         $this->setIfExists('buttons_border_radius', $data ?? [], null);
         $this->setIfExists('custom_logo_file', $data ?? [], null);
         $this->setIfExists('link_text_color', $data ?? [], null);
         $this->setIfExists('primary_color', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -350,6 +369,7 @@ class ApiApplicationResponsePreferences implements ModelInterface, ArrayAccess, 
             }
         }
         $this->container['button_text_color'] = $button_text_color;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -377,6 +397,7 @@ class ApiApplicationResponsePreferences implements ModelInterface, ArrayAccess, 
             throw new \InvalidArgumentException('non-nullable buttons_border_radius cannot be null');
         }
         $this->container['buttons_border_radius'] = $buttons_border_radius;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -411,6 +432,7 @@ class ApiApplicationResponsePreferences implements ModelInterface, ArrayAccess, 
             }
         }
         $this->container['custom_logo_file'] = $custom_logo_file;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -445,6 +467,7 @@ class ApiApplicationResponsePreferences implements ModelInterface, ArrayAccess, 
             }
         }
         $this->container['link_text_color'] = $link_text_color;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -479,9 +502,14 @@ class ApiApplicationResponsePreferences implements ModelInterface, ArrayAccess, 
             }
         }
         $this->container['primary_color'] = $primary_color;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

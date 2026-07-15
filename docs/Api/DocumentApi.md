@@ -333,7 +333,7 @@ try {
 ## `listDocuments()`
 
 ```php
-listDocuments($page, $limit): \SignWell\Sdk\Models\DocumentListResponse
+listDocuments($page, $limit, $query): \SignWell\Sdk\Models\DocumentListResponse
 ```
 
 List Documents
@@ -361,9 +361,10 @@ $apiInstance = new SignWell\Sdk\Resources\DocumentApi(
 );
 $page = 1; // int
 $limit = 10; // int
+$query = 'query_example'; // string | Raw API filter query. Use AND between filters, for example: \"name:Classic AND status:completed\".
 
 try {
-    $result = $apiInstance->listDocuments($page, $limit);
+    $result = $apiInstance->listDocuments($page, $limit, $query);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling DocumentApi->listDocuments: ', $e->getMessage(), PHP_EOL;
@@ -376,6 +377,7 @@ try {
 | ------------- | ------------- | ------------- | ------------- |
 | **page** | **int**|  | [optional] [default to 1] |
 | **limit** | **int**|  | [optional] [default to 10] |
+| **query** | **string**| Raw API filter query. Use AND between filters, for example: \&quot;name:Classic AND status:completed\&quot;. | [optional] |
 
 ### Return type
 

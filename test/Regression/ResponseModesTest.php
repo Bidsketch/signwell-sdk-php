@@ -26,11 +26,15 @@ final class ResponseModesTest extends TestCase
     public function testBulkSendCsvTemplateDefaultsToBinaryMode(): void
     {
         $history = [];
-        $api = new BulkSendApi($this->client([new Response(200, ['Content-Type' => 'application/octet-stream'], 'csv')], $history), $this->config());
+        $api = new BulkSendApi($this->client([new Response(200, [
+            'Content-Type' => 'application/octet-stream',
+            'content-disposition' => ['inline; filename=template.csv'],
+        ], 'csv')], $history), $this->config());
 
         $result = $api->getBulkSendCsvTemplate(['00000000-0000-0000-0000-000000000000']);
 
         self::assertInstanceOf(\SplFileObject::class, $result);
+        self::assertSame('csv', $result->fread(3));
         self::assertSame('application/octet-stream', $history[0]['request']->getHeaderLine('Accept'));
     }
 
@@ -50,11 +54,16 @@ final class ResponseModesTest extends TestCase
     public function testCompletedPdfDefaultsToBinaryMode(): void
     {
         $history = [];
-        $api = new DocumentApi($this->client([new Response(200, ['Content-Type' => 'application/pdf'], '%PDF')], $history), $this->config());
+        $api = new DocumentApi($this->client([new Response(200, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => ['inline; filename=../../document.pdf'],
+        ], '%PDF')], $history), $this->config());
 
         $result = $api->getCompletedPdf('doc_123');
 
         self::assertInstanceOf(\SplFileObject::class, $result);
+        self::assertSame('%PDF', $result->fread(4));
+        self::assertSame('document.pdf', basename($result->getPathname()));
         self::assertSame('application/octet-stream', $history[0]['request']->getHeaderLine('Accept'));
     }
 
@@ -75,7 +84,10 @@ final class ResponseModesTest extends TestCase
     public function testNom151ResponseModesAndConflictValidation(): void
     {
         $api = new RegionalApi($this->client([
-            new Response(200, ['Content-Type' => 'application/octet-stream'], 'zip'),
+            new Response(200, [
+                'Content-Type' => 'application/octet-stream',
+                'Content-Disposition' => ['inline; filename=nom151.zip'],
+            ], 'zip'),
             new Response(200, ['Content-Type' => 'application/json'], '{"file_url":"https://example.com/nom151.zip"}'),
             new Response(200, ['Content-Type' => 'application/json'], '{"nom151":{"status":"issued"}}'),
         ]), $this->config());

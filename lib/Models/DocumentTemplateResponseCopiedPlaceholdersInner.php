@@ -275,13 +275,14 @@ class DocumentTemplateResponseCopiedPlaceholdersInner implements ModelInterface,
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
         $this->setIfExists('placeholder_id', $data ?? [], null);
@@ -290,6 +291,28 @@ class DocumentTemplateResponseCopiedPlaceholdersInner implements ModelInterface,
         $this->setIfExists('message', $data ?? [], null);
         $this->setIfExists('preassigned_recipient_name', $data ?? [], null);
         $this->setIfExists('preassigned_recipient_email', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -360,6 +383,7 @@ class DocumentTemplateResponseCopiedPlaceholdersInner implements ModelInterface,
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -387,6 +411,7 @@ class DocumentTemplateResponseCopiedPlaceholdersInner implements ModelInterface,
             throw new \InvalidArgumentException('non-nullable placeholder_id cannot be null');
         }
         $this->container['placeholder_id'] = $placeholder_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -414,6 +439,7 @@ class DocumentTemplateResponseCopiedPlaceholdersInner implements ModelInterface,
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -448,6 +474,7 @@ class DocumentTemplateResponseCopiedPlaceholdersInner implements ModelInterface,
             }
         }
         $this->container['subject'] = $subject;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -482,6 +509,7 @@ class DocumentTemplateResponseCopiedPlaceholdersInner implements ModelInterface,
             }
         }
         $this->container['message'] = $message;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -509,6 +537,7 @@ class DocumentTemplateResponseCopiedPlaceholdersInner implements ModelInterface,
             throw new \InvalidArgumentException('non-nullable preassigned_recipient_name cannot be null');
         }
         $this->container['preassigned_recipient_name'] = $preassigned_recipient_name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -536,9 +565,14 @@ class DocumentTemplateResponseCopiedPlaceholdersInner implements ModelInterface,
             throw new \InvalidArgumentException('non-nullable preassigned_recipient_email cannot be null');
         }
         $this->container['preassigned_recipient_email'] = $preassigned_recipient_email;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

@@ -264,19 +264,38 @@ class PaginationMeta implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('current_page', $data ?? [], null);
         $this->setIfExists('next_page', $data ?? [], null);
         $this->setIfExists('previous_page', $data ?? [], null);
         $this->setIfExists('total_count', $data ?? [], null);
         $this->setIfExists('total_pages', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -353,6 +372,7 @@ class PaginationMeta implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable current_page cannot be null');
         }
         $this->container['current_page'] = $current_page;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -387,6 +407,7 @@ class PaginationMeta implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['next_page'] = $next_page;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -421,6 +442,7 @@ class PaginationMeta implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['previous_page'] = $previous_page;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -448,6 +470,7 @@ class PaginationMeta implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable total_count cannot be null');
         }
         $this->container['total_count'] = $total_count;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -475,9 +498,14 @@ class PaginationMeta implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable total_pages cannot be null');
         }
         $this->container['total_pages'] = $total_pages;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

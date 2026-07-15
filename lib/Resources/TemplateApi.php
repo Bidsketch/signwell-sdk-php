@@ -436,6 +436,7 @@ class TemplateApi
             );
     }
 
+
     /**
      * Create request for operation 'createTemplate'
      *
@@ -660,6 +661,7 @@ class TemplateApi
                 }
             );
     }
+
 
     /**
      * Create request for operation 'deleteTemplate'
@@ -1020,6 +1022,7 @@ class TemplateApi
             );
     }
 
+
     /**
      * Create request for operation 'getTemplate'
      *
@@ -1124,15 +1127,16 @@ class TemplateApi
      *
      * @param  int|null $page page (optional, default to 1)
      * @param  int|null $limit limit (optional, default to 10)
+     * @param  string|null $query Raw API filter query. Use AND between filters, for example: \&quot;name:Classic AND status:Available\&quot;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTemplates'] to see the possible values for this operation
      *
      * @throws \SignWell\Sdk\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \SignWell\Sdk\Models\DocumentTemplateListResponse|\SignWell\Sdk\Models\ErrorResponse|\SignWell\Sdk\Models\RateLimitErrorResponse
      */
-    public function listTemplates($page = 1, $limit = 10, string $contentType = self::contentTypes['listTemplates'][0])
+    public function listTemplates($page = 1, $limit = 10, $query = null, string $contentType = self::contentTypes['listTemplates'][0])
     {
-        list($response) = $this->listTemplatesWithHttpInfo($page, $limit, $contentType);
+        list($response) = $this->listTemplatesWithHttpInfo($page, $limit, $query, $contentType);
         return $response;
     }
 
@@ -1143,15 +1147,16 @@ class TemplateApi
      *
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $limit (optional, default to 10)
+     * @param  string|null $query Raw API filter query. Use AND between filters, for example: \&quot;name:Classic AND status:Available\&quot;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTemplates'] to see the possible values for this operation
      *
      * @throws \SignWell\Sdk\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \SignWell\Sdk\Models\DocumentTemplateListResponse|\SignWell\Sdk\Models\ErrorResponse|\SignWell\Sdk\Models\RateLimitErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function listTemplatesWithHttpInfo($page = 1, $limit = 10, string $contentType = self::contentTypes['listTemplates'][0])
+    public function listTemplatesWithHttpInfo($page = 1, $limit = 10, $query = null, string $contentType = self::contentTypes['listTemplates'][0])
     {
-        $request = $this->listTemplatesRequest($page, $limit, $contentType);
+        $request = $this->listTemplatesRequest($page, $limit, $query, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1331,14 +1336,15 @@ class TemplateApi
      *
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $limit (optional, default to 10)
+     * @param  string|null $query Raw API filter query. Use AND between filters, for example: \&quot;name:Classic AND status:Available\&quot;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTemplates'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listTemplatesAsync($page = 1, $limit = 10, string $contentType = self::contentTypes['listTemplates'][0])
+    public function listTemplatesAsync($page = 1, $limit = 10, $query = null, string $contentType = self::contentTypes['listTemplates'][0])
     {
-        return $this->listTemplatesAsyncWithHttpInfo($page, $limit, $contentType)
+        return $this->listTemplatesAsyncWithHttpInfo($page, $limit, $query, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1353,15 +1359,16 @@ class TemplateApi
      *
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $limit (optional, default to 10)
+     * @param  string|null $query Raw API filter query. Use AND between filters, for example: \&quot;name:Classic AND status:Available\&quot;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTemplates'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listTemplatesAsyncWithHttpInfo($page = 1, $limit = 10, string $contentType = self::contentTypes['listTemplates'][0])
+    public function listTemplatesAsyncWithHttpInfo($page = 1, $limit = 10, $query = null, string $contentType = self::contentTypes['listTemplates'][0])
     {
         $returnType = '\SignWell\Sdk\Models\DocumentTemplateListResponse';
-        $request = $this->listTemplatesRequest($page, $limit, $contentType);
+        $request = $this->listTemplatesRequest($page, $limit, $query, $contentType);
         $options = $this->createHttpClientOption();
         $this->debugRequest($request);
 
@@ -1384,16 +1391,48 @@ class TemplateApi
     }
 
     /**
+     * Iterate over paginated listTemplates responses.
+     *
+     * @return \Generator<int, mixed>
+     */
+    public function iterateTemplatePages(?int $page = 1, ?int $limit = 50, ?string $query = null, string $contentType = self::contentTypes['listTemplates'][0]): \Generator
+    {
+        $nextPage = $page ?? 1;
+        while ($nextPage !== null) {
+            $response = $this->listTemplates($nextPage, $limit, $query, $contentType);
+            yield $response;
+            $nextPage = is_object($response) && method_exists($response, 'getNextPage') ? $response->getNextPage() : null;
+        }
+    }
+
+    /**
+     * Iterate over all listTemplates items.
+     *
+     * @return \Generator<int, mixed>
+     */
+    public function iterateTemplates(?int $page = 1, ?int $limit = 50, ?string $query = null, string $contentType = self::contentTypes['listTemplates'][0]): \Generator
+    {
+        foreach ($this->iterateTemplatePages($page, $limit, $query, $contentType) as $pageResponse) {
+            $items = is_object($pageResponse) && method_exists($pageResponse, 'getTemplates') ? $pageResponse->getTemplates() : [];
+            foreach ($items ?? [] as $item) {
+                yield $item;
+            }
+        }
+    }
+
+
+    /**
      * Create request for operation 'listTemplates'
      *
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $limit (optional, default to 10)
+     * @param  string|null $query Raw API filter query. Use AND between filters, for example: \&quot;name:Classic AND status:Available\&quot;. (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listTemplates'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function listTemplatesRequest($page = 1, $limit = 10, string $contentType = self::contentTypes['listTemplates'][0])
+    public function listTemplatesRequest($page = 1, $limit = 10, $query = null, string $contentType = self::contentTypes['listTemplates'][0])
     {
 
         if ($page !== null && $page < 1) {
@@ -1405,6 +1444,10 @@ class TemplateApi
         }
         if ($limit !== null && $limit < 1) {
             throw new \InvalidArgumentException('invalid value for "$limit" when calling TemplateApi.listTemplates, must be bigger than or equal to 1.');
+        }
+
+        if ($query !== null && strlen($query) < 1) {
+            throw new \InvalidArgumentException('invalid length for "$query" when calling TemplateApi.listTemplates, must be bigger than or equal to 1.');
         }
 
 
@@ -1429,6 +1472,15 @@ class TemplateApi
             $limit,
             'limit', // param base name
             'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $query,
+            'query', // param base name
+            'string', // openApiType
             'form', // style
             true, // explode
             false // required
@@ -1795,6 +1847,7 @@ class TemplateApi
                 }
             );
     }
+
 
     /**
      * Create request for operation 'updateTemplate'

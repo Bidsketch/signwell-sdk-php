@@ -31,6 +31,7 @@ use SignWell\Sdk\Resources\BulkSendApi;
 use SignWell\Sdk\Resources\DocumentApi;
 use SignWell\Sdk\Resources\MeApi;
 use SignWell\Sdk\Resources\TemplateApi;
+use SignWell\Sdk\Resources\WebhooksApi;
 use SignWell\Sdk\Webhook;
 use SignWell\Sdk\Webhook\ReplayStoreCapacityExceededException;
 
@@ -233,7 +234,7 @@ final class ExportsTest extends TestCase
 
         self::assertInstanceOf(DocumentApi::class, $manager->documents());
         self::assertSame(Embedded::class, $manager->embedded());
-        self::assertFalse(method_exists($manager, 'webhook'));
+        self::assertSame(Webhook::class, $manager->webhook());
     }
 
     public function testLaravelFacadeExposesClientConvenienceMethods(): void
@@ -267,14 +268,26 @@ final class ExportsTest extends TestCase
         }
     }
 
-    public function testWebhookConvenienceIsNotExposedByClientOrManager(): void
+    public function testWebhookResourceConvenienceIsExposedByClientAndManager(): void
     {
+        $client = Client::fromApiKey('test-key', host: 'https://api.example.test');
+        self::assertInstanceOf(WebhooksApi::class, $client->webhooks());
+        self::assertTrue(method_exists(SignWellManager::class, 'webhooks'));
+
+        SignWellFacade::clearResolvedInstance();
+        SignWellFacade::swap($client);
+
+        try {
+            self::assertInstanceOf(WebhooksApi::class, SignWellFacade::webhooks());
+        } finally {
+            SignWellFacade::clearResolvedInstance();
+        }
+
         self::assertFalse(method_exists(Client::class, 'webhooksApi'));
         self::assertFalse(method_exists(Client::class, 'verifyEvent'));
         self::assertFalse(method_exists(Client::class, 'verifyEventOrThrow'));
         self::assertFalse(method_exists(Client::class, 'verifyEventOnce'));
         self::assertFalse(method_exists(Client::class, 'verifyEventOnceOrThrow'));
         self::assertFalse(method_exists(Client::class, 'replayKey'));
-        self::assertFalse(method_exists(SignWellManager::class, 'webhook'));
     }
 }

@@ -240,15 +240,26 @@ class BulkSendCsvTemplateResponse implements ModelInterface, ArrayAccess, \JsonS
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('data', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
     }
 
     /**
@@ -319,9 +330,14 @@ class BulkSendCsvTemplateResponse implements ModelInterface, ArrayAccess, \JsonS
             throw new \InvalidArgumentException('non-nullable data cannot be null');
         }
         $this->container['data'] = $data;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

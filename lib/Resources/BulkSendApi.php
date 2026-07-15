@@ -439,6 +439,7 @@ class BulkSendApi
             );
     }
 
+
     /**
      * Create request for operation 'createBulkSend'
      *
@@ -831,6 +832,7 @@ class BulkSendApi
             );
     }
 
+
     /**
      * Create request for operation 'getBulkSend'
      *
@@ -1087,6 +1089,7 @@ class BulkSendApi
                 }
             );
     }
+
 
     /**
      * Create request for operation 'getBulkSendCsvTemplate'
@@ -1508,6 +1511,7 @@ class BulkSendApi
             );
     }
 
+
     /**
      * Create request for operation 'getBulkSendDocuments'
      *
@@ -1909,6 +1913,7 @@ class BulkSendApi
                 }
             );
     }
+
 
     /**
      * Create request for operation 'listBulkSends'
@@ -2340,6 +2345,7 @@ class BulkSendApi
                 }
             );
     }
+
 
     /**
      * Create request for operation 'validateBulkSendCsv'

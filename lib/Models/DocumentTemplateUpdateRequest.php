@@ -323,13 +323,14 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
      */
     protected $container = [];
 
+
     /**
      * Constructor
      *
      * @param mixed[]|null $data Associated array of property values
      *                      initializing the model
      */
-    public function __construct(?array $data = null)
+    public function __construct($data = null)
     {
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('subject', $data ?? [], null);
@@ -346,6 +347,44 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
         $this->setIfExists('metadata', $data ?? [], null);
         $this->setIfExists('labels', $data ?? [], null);
         $this->setIfExists('checkbox_groups', $data ?? [], null);
+    }
+
+    public function hasActualInstance(): bool
+    {
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+        return false;
+    }
+
+    public function getActualInstance()
+    {
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
+        return null;
     }
 
     /**
@@ -417,6 +456,7 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
         $this->container['name'] = $name;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -444,6 +484,7 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable subject cannot be null');
         }
         $this->container['subject'] = $subject;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -471,6 +512,7 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable message cannot be null');
         }
         $this->container['message'] = $message;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -498,6 +540,7 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable draft cannot be null');
         }
         $this->container['draft'] = $draft;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -530,6 +573,7 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
         }
 
         $this->container['expires_in'] = $expires_in;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -557,6 +601,7 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable reminders cannot be null');
         }
         $this->container['reminders'] = $reminders;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -584,6 +629,7 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable apply_signing_order cannot be null');
         }
         $this->container['apply_signing_order'] = $apply_signing_order;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -611,6 +657,7 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable api_application_id cannot be null');
         }
         $this->container['api_application_id'] = $api_application_id;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -638,6 +685,7 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable redirect_url cannot be null');
         }
         $this->container['redirect_url'] = $redirect_url;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -665,6 +713,7 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable allow_decline cannot be null');
         }
         $this->container['allow_decline'] = $allow_decline;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -692,6 +741,7 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable allow_reassign cannot be null');
         }
         $this->container['allow_reassign'] = $allow_reassign;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -719,6 +769,7 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable decline_redirect_url cannot be null');
         }
         $this->container['decline_redirect_url'] = $decline_redirect_url;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -746,6 +797,7 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable metadata cannot be null');
         }
         $this->container['metadata'] = $metadata;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -773,6 +825,7 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable labels cannot be null');
         }
         $this->container['labels'] = $labels;
+        $this->normalizeAfterSet();
 
         return $this;
     }
@@ -800,9 +853,14 @@ class DocumentTemplateUpdateRequest implements ModelInterface, ArrayAccess, \Jso
             throw new \InvalidArgumentException('non-nullable checkbox_groups cannot be null');
         }
         $this->container['checkbox_groups'] = $checkbox_groups;
+        $this->normalizeAfterSet();
 
         return $this;
     }
+    private function normalizeAfterSet(): void
+    {
+    }
+
     /**
      * Returns true if offset exists. False otherwise.
      *

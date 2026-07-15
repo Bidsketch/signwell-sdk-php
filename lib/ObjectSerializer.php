@@ -84,6 +84,10 @@ class ObjectSerializer
         }
 
         if (is_object($data)) {
+            if ($data instanceof ModelInterface && method_exists($data, 'hasActualInstance') && $data->hasActualInstance()) {
+                return self::sanitizeForSerialization($data->getActualInstance(), $type, $format);
+            }
+
             $values = [];
             if ($data instanceof ModelInterface) {
                 $formats = $data::openAPIFormats();
@@ -486,10 +490,10 @@ class ObjectSerializer
             /** @var \Psr\Http\Message\StreamInterface $data */
 
             // determine file name
+            $contentDisposition = self::firstHeaderValue($httpHeaders, 'Content-Disposition');
             if (
-                is_array($httpHeaders)
-                && array_key_exists('Content-Disposition', $httpHeaders)
-                && preg_match('/inline; filename=[\'"]?([^\'"\s]+)[\'"]?$/i', $httpHeaders['Content-Disposition'], $match)
+                $contentDisposition !== ''
+                && preg_match('/inline; filename=[\'"]?([^\'"\s]+)[\'"]?$/i', $contentDisposition, $match)
             ) {
                 $filename = Configuration::getDefaultConfiguration()->getTempFolderPath() . DIRECTORY_SEPARATOR . self::sanitizeFilename($match[1]);
             } else {
@@ -558,6 +562,36 @@ class ObjectSerializer
             }
             return $instance;
         }
+    }
+
+    /**
+     * @param mixed $httpHeaders
+     */
+    private static function firstHeaderValue($httpHeaders, string $name): string
+    {
+        if (!is_array($httpHeaders)) {
+            return '';
+        }
+
+        foreach ($httpHeaders as $headerName => $value) {
+            if (strcasecmp((string) $headerName, $name) !== 0) {
+                continue;
+            }
+
+            if (is_array($value)) {
+                foreach ($value as $item) {
+                    if (is_string($item) && trim($item) !== '') {
+                        return $item;
+                    }
+                }
+
+                return '';
+            }
+
+            return is_string($value) ? $value : '';
+        }
+
+        return '';
     }
 
     /**
