@@ -8,6 +8,7 @@ use PHPUnit\Framework\TestCase;
 use SignWell\Sdk\Embedded;
 use SignWell\Sdk\Models\DocumentRequest;
 use SignWell\Sdk\Models\DocumentResponse;
+use SignWell\Sdk\Models\DocumentResponseFieldsInnerInner;
 use SignWell\Sdk\Models\FieldsInnerInner;
 use SignWell\Sdk\Models\FieldType;
 use SignWell\Sdk\ObjectSerializer;
@@ -167,6 +168,34 @@ final class EmbeddedTest extends TestCase
                 self::assertStringContainsString('Checkbox field values', $error->getMessage());
             }
         }
+    }
+
+    public function testCheckboxResponseValuesDeserializeFromApiWireValues(): void
+    {
+        $checkbox = [
+            'type' => 'checkbox',
+            'value' => 't',
+            'x' => 1,
+            'y' => 1,
+            'page' => 1,
+            'recipient_id' => '1',
+        ];
+
+        $field = ObjectSerializer::deserialize(
+            json_decode(json_encode($checkbox, JSON_THROW_ON_ERROR), false, flags: JSON_THROW_ON_ERROR),
+            DocumentResponseFieldsInnerInner::class
+        );
+        $document = ObjectSerializer::deserialize(
+            json_decode(json_encode([
+                'id' => 'doc_123',
+                'test_mode' => true,
+                'fields' => [[$checkbox]],
+            ], JSON_THROW_ON_ERROR), false, flags: JSON_THROW_ON_ERROR),
+            DocumentResponse::class
+        );
+
+        self::assertInstanceOf(DocumentResponseFieldsInnerInner::class, $field);
+        self::assertInstanceOf(DocumentResponse::class, $document);
     }
 
     public function testRejectsMalformedPdfBase64Uploads(): void

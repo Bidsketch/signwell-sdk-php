@@ -403,7 +403,6 @@ class DocumentFromTemplateResponseFieldsInnerInner implements ModelInterface, Ar
         $this->setIfExists('options', $data ?? [], null);
         $this->setIfExists('default_option', $data ?? [], null);
         $this->setIfExists('allow_other', $data ?? [], null);
-        $this->normalizeCheckboxValue();
     }
 
     public function hasActualInstance(): bool
@@ -1177,39 +1176,6 @@ class DocumentFromTemplateResponseFieldsInnerInner implements ModelInterface, Ar
     }
     private function normalizeAfterSet(): void
     {
-        $this->normalizeCheckboxValue();
-    }
-
-    private function normalizeCheckboxValue(): void
-    {
-        if (($this->container['type'] ?? null) !== 'checkbox' || !array_key_exists('value', $this->container) || $this->container['value'] === null) {
-            return;
-        }
-
-        $this->container['value'] = self::normalizeCheckboxScalar($this->container['value']);
-    }
-
-    private static function normalizeCheckboxScalar($value): string
-    {
-        if (is_object($value) && method_exists($value, 'hasActualInstance') && $value->hasActualInstance()) {
-            $value = $value->getActualInstance();
-        }
-
-        if (is_bool($value)) {
-            return $value ? 't' : 'f';
-        }
-
-        if (is_string($value)) {
-            $normalized = strtolower(trim($value));
-            if ($normalized === 'true' || $normalized === 't') {
-                return 't';
-            }
-            if ($normalized === 'false' || $normalized === 'f') {
-                return 'f';
-            }
-        }
-
-        throw new \InvalidArgumentException('Checkbox field values must be boolean or one of "true", "false", "t", or "f".');
     }
 
     /**
