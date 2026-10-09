@@ -60,7 +60,7 @@ final class ErrorsTest extends TestCase
     {
         $request = new Request('GET', 'https://www.signwell.test/api/v1/documents/doc_123?api_key=secret');
         $api = new DocumentApi($this->client([
-            new ConnectException('cURL error 28: Operation timed out', $request, null, ['errno' => 28]),
+            new ConnectException('cURL error 28: Operation timed out', $request),
         ]), $this->config());
 
         try {
@@ -189,7 +189,7 @@ final class ErrorsTest extends TestCase
 
     /**
      * @param list<Response|\Throwable> $responses
-     * @param array|\ArrayAccess<int, array>|null $history
+     * @param array<array{request: \Psr\Http\Message\RequestInterface, response: \Psr\Http\Message\ResponseInterface|null, error: mixed, options: array<mixed>}>|\ArrayAccess<int, array{request: \Psr\Http\Message\RequestInterface, response: \Psr\Http\Message\ResponseInterface|null, error: mixed, options: array<mixed>}>|null $history
      */
     private function client(array $responses, array|\ArrayAccess|null &$history = null): Client
     {

@@ -42,6 +42,21 @@ final class ConfigurationTest extends TestCase
         }
     }
 
+    public function testDefaultUserAgentIdentifiesTheSignWellPhpSdk(): void
+    {
+        $config = new Configuration();
+
+        self::assertMatchesRegularExpression('#^signwell-sdk-php/\d+\.\d+\.\d+#', $config->getUserAgent());
+    }
+
+    public function testCallerSuppliedUserAgentReplacesTheDefault(): void
+    {
+        $config = new Configuration();
+
+        self::assertSame($config, $config->setUserAgent('MyApp/1.0'));
+        self::assertSame('MyApp/1.0', $config->getUserAgent());
+    }
+
     public function testTimeoutsHaveDefaultsAndCanBeConfigured(): void
     {
         $config = new Configuration();

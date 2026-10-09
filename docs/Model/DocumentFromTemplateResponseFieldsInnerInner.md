@@ -18,6 +18,8 @@ Name | Type | Description | Notes
 **required** | **bool** |  | [optional]
 **type** | [**\SignWell\Sdk\Models\FieldType**](FieldType.md) |  | [optional]
 **validation** | [**\SignWell\Sdk\Models\TextValidation**](TextValidation.md) |  | [optional]
+**validation_regex** | **string** | Text fields with custom validation only: the regex pattern used to validate field values. Required when validation is set to custom. | [optional]
+**validation_regex_error_message** | **string** | Text fields with custom validation only: the error message shown to the recipient when their input doesn&#39;t match the regex pattern. Required when validation is set to custom. | [optional]
 **value** | [**\SignWell\Sdk\Models\DocumentResponseFieldsInnerInnerValue**](DocumentResponseFieldsInnerInnerValue.md) |  | [optional]
 **height** | **string** |  | [optional]
 **width** | **string** |  | [optional]
