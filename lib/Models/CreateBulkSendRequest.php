@@ -316,29 +316,17 @@ class CreateBulkSendRequest implements ModelInterface, ArrayAccess, \JsonSeriali
     public function hasActualInstance(): bool
     {
         return false;
-        return false;
-        return false;
-        return false;
-        return false;
-        return false;
-        return false;
-        return false;
-        return false;
-        return false;
     }
 
     public function getActualInstance()
     {
         return null;
-        return null;
-        return null;
-        return null;
-        return null;
-        return null;
-        return null;
-        return null;
-        return null;
-        return null;
+    }
+
+    /** @return list<string> */
+    public static function primitiveUnionTypes(): array
+    {
+        return [];
     }
 
     /**

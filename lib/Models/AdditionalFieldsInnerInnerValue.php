@@ -256,7 +256,7 @@ class AdditionalFieldsInnerInnerValue implements ModelInterface, ArrayAccess, \J
      */
     public function __construct($data = null)
     {
-        if ($data !== null && !is_array($data)) {
+        if (is_scalar($data)) {
             $this->actualInstance = $data;
             $this->actualInstanceSet = true;
             return;
@@ -272,6 +272,12 @@ class AdditionalFieldsInnerInnerValue implements ModelInterface, ArrayAccess, \J
     public function getActualInstance()
     {
         return $this->actualInstance;
+    }
+
+    /** @return list<string> */
+    public static function primitiveUnionTypes(): array
+    {
+        return ['string', 'boolean', 'number', ];
     }
 
     /**

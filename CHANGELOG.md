@@ -15,6 +15,10 @@
 - Standardize the default SDK User-Agent; callers can continue to configure their own value.
 - Accept absent or null FileInfo.name values in document responses.
 
+### Fixed
+
+- Preserve primitive union values when reading responses, including checkbox `t`/`f`, booleans, numbers, and numeric-looking strings. Dropdown options accept both strings and detailed objects.
+
 ### Dependencies
 
 - Update Guzzle to 8.2 and PSR-7 to 3.1, preserving PHP 8.2 support. Adapt JSON encoding and transport exceptions to the new APIs.

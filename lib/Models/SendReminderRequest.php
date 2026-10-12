@@ -260,6 +260,12 @@ class SendReminderRequest implements ModelInterface, ArrayAccess, \JsonSerializa
         return null;
     }
 
+    /** @return list<string> */
+    public static function primitiveUnionTypes(): array
+    {
+        return [];
+    }
+
     /**
     * Sets $this->container[$variableName] to the given data or to the given default Value; if $variableName
     * is nullable and its value is set to null in the $fields array, then mark it as "set to null" in the

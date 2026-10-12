@@ -522,6 +522,17 @@ class ObjectSerializer
             }
             return $data;
         } else {
+            if (is_scalar($data) && method_exists($class, 'primitiveUnionTypes')) {
+                $types = $class::primitiveUnionTypes();
+                if ($types !== []) {
+                    $type = is_string($data) ? 'string' : (is_bool($data) ? 'boolean' : (is_int($data) ? 'integer' : 'number'));
+                    if (in_array($type, $types, true) || ($type === 'integer' && in_array('number', $types, true))) {
+                        return new $class($data);
+                    }
+                    throw new \InvalidArgumentException("Invalid primitive value for union '$class'.");
+                }
+            }
+
             $data = is_string($data) ? json_decode($data) : $data;
 
             if (is_array($data)) {

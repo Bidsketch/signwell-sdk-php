@@ -251,6 +251,14 @@ class DropdownOption implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected $container = [];
 
+    /**
+     * Scalar value carried by primitive oneOf wrapper models.
+     *
+     * @var mixed
+     */
+    protected $actualInstance;
+
+    protected bool $actualInstanceSet = false;
 
     /**
      * Constructor
@@ -260,6 +268,12 @@ class DropdownOption implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct($data = null)
     {
+        if (is_scalar($data)) {
+            $this->actualInstance = $data;
+            $this->actualInstanceSet = true;
+            return;
+        }
+
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('api_id', $data ?? [], null);
         $this->setIfExists('is_other', $data ?? [], false);
@@ -267,16 +281,18 @@ class DropdownOption implements ModelInterface, ArrayAccess, \JsonSerializable
 
     public function hasActualInstance(): bool
     {
-        return false;
-        return false;
-        return false;
+        return $this->actualInstanceSet;
     }
 
     public function getActualInstance()
     {
-        return null;
-        return null;
-        return null;
+        return $this->actualInstance;
+    }
+
+    /** @return list<string> */
+    public static function primitiveUnionTypes(): array
+    {
+        return ['string', ];
     }
 
     /**
