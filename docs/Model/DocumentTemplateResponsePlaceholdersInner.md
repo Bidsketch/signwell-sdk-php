@@ -12,5 +12,6 @@ Name | Type | Description | Notes
 **preassigned_recipient_email** | **string** |  | [optional]
 **signing_order** | **int** |  | [optional]
 **attachment_requests** | [**\SignWell\Sdk\Models\AttachmentRequestInfo[]**](AttachmentRequestInfo.md) |  | [optional]
+**passcode_delivery** | [**\SignWell\Sdk\Models\DocumentResponseRecipientsInnerPasscodeDelivery**](DocumentResponseRecipientsInnerPasscodeDelivery.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

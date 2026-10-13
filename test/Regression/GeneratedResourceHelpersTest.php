@@ -12,13 +12,66 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use SignWell\Sdk\Configuration;
 use SignWell\Sdk\Errors\WaitForCompletionTimeoutError;
+use SignWell\Sdk\Models\AdditionalFieldsInnerInnerValue;
 use SignWell\Sdk\Models\DocumentResponse;
+use SignWell\Sdk\Models\DocumentResponseFieldsInnerInnerValue;
+use SignWell\Sdk\Models\DropdownOption;
+use SignWell\Sdk\Models\TemplateFieldValuesInnerValue;
 use SignWell\Sdk\Models\UpdateDocumentAndSendRequest;
+use SignWell\Sdk\ObjectSerializer;
 use SignWell\Sdk\Resources\DocumentApi;
 use SignWell\Sdk\Resources\TemplateApi;
 
 final class GeneratedResourceHelpersTest extends TestCase
 {
+    public function testFutureEnumsKeepResponsesReadableWithoutAcceptingWrongTypes(): void
+    {
+        $field = ObjectSerializer::deserialize((object) ['x' => 1, 'y' => 2, 'page' => 1, 'date_format' => 'future_format'], \SignWell\Sdk\Models\DocumentResponseFieldsInnerInner::class);
+        self::assertInstanceOf(\SignWell\Sdk\Models\DocumentResponseFieldsInnerInner::class, $field);
+        self::assertSame('unknown_default_open_api', $field->getDateFormat());
+        $delivery = ObjectSerializer::deserialize((object) ['methods' => ['email', 'future_method']], \SignWell\Sdk\Models\RecipientsInnerPasscodeDelivery::class);
+        self::assertInstanceOf(\SignWell\Sdk\Models\RecipientsInnerPasscodeDelivery::class, $delivery);
+        self::assertSame(['email', 'unknown_default_open_api'], $delivery->getMethods());
+        $this->expectException(\InvalidArgumentException::class);
+        ObjectSerializer::deserialize(17, \SignWell\Sdk\Models\DateFormat::class);
+    }
+
+    public function testPrimitiveUnionsPreserveResponseValuesAndRoundTrip(): void
+    {
+        foreach ([AdditionalFieldsInnerInnerValue::class, DocumentResponseFieldsInnerInnerValue::class, TemplateFieldValuesInnerValue::class] as $class) {
+            foreach (['t', 'f', 'approved', '123', '', true, false, 0, 12.5] as $value) {
+                /** @var AdditionalFieldsInnerInnerValue|DocumentResponseFieldsInnerInnerValue|TemplateFieldValuesInnerValue $model */
+                $model = ObjectSerializer::deserialize($value, $class);
+                self::assertTrue($model->hasActualInstance());
+                self::assertSame($value, $model->getActualInstance());
+                self::assertSame($value, ObjectSerializer::sanitizeForSerialization($model));
+            }
+        }
+        $documents = new DocumentApi($this->client([
+            new Response(200, ['Content-Type' => 'application/json'], '{"id":"doc_1","fields":[[{"type":"checkbox","value":"t"},{"type":"checkbox","value":"f"},{"type":"text","value":"123"}]]}'),
+        ]), $this->config());
+        $document = $documents->getDocument('doc_1');
+        self::assertInstanceOf(DocumentResponse::class, $document);
+        $fields = $document->getFields()[0];
+        self::assertSame('t', $fields[0]->getValue()->getActualInstance());
+        self::assertSame('f', $fields[1]->getValue()->getActualInstance());
+        self::assertSame('123', $fields[2]->getValue()->getActualInstance());
+    }
+
+    public function testDropdownOptionsAcceptStringsAndDetailedObjects(): void
+    {
+        $simple = ObjectSerializer::deserialize('A', DropdownOption::class);
+        self::assertInstanceOf(DropdownOption::class, $simple);
+        self::assertSame('A', ObjectSerializer::sanitizeForSerialization($simple));
+        $detailed = ObjectSerializer::deserialize((object) ['name' => 'B', 'api_id' => 'b'], DropdownOption::class);
+        self::assertInstanceOf(DropdownOption::class, $detailed);
+        self::assertSame('B', $detailed->getName());
+        self::assertSame('b', $detailed->getApiId());
+        $serialized = ObjectSerializer::sanitizeForSerialization($detailed);
+        self::assertIsObject($serialized);
+        self::assertSame('B', $serialized->name);
+    }
+
     public function testListResourcesSerializeRawQueryFilters(): void
     {
         $history = [];
@@ -113,7 +166,7 @@ final class GeneratedResourceHelpersTest extends TestCase
 
     /**
      * @param list<Response> $responses
-     * @param array|\ArrayAccess<int, array>|null $history
+     * @param array<array{request: \Psr\Http\Message\RequestInterface, response: \Psr\Http\Message\ResponseInterface|null, error: mixed, options: array<mixed>}>|\ArrayAccess<int, array{request: \Psr\Http\Message\RequestInterface, response: \Psr\Http\Message\ResponseInterface|null, error: mixed, options: array<mixed>}>|null $history
      */
     private function client(array $responses, array|\ArrayAccess|null &$history = null): Client
     {
