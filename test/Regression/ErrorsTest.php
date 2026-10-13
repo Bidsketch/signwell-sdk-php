@@ -205,6 +205,7 @@ final class ErrorsTest extends TestCase
     private function config(): Configuration
     {
         return (new Configuration())
+            ->setMaxRateLimitRetries(0)
             ->setHost('https://www.signwell.test')
             ->setApiKey('X-Api-Key', 'test-key');
     }

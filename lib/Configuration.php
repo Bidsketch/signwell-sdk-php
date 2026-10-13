@@ -139,6 +139,8 @@ class Configuration
      */
     protected float $timeout = 30.0;
 
+    protected int $maxRateLimitRetries = 2;
+
     /**
      * Constructor
      */
@@ -438,6 +440,20 @@ class Configuration
         $this->timeout = self::normalizeTimeout($seconds, 'timeout');
 
         return $this;
+    }
+
+    public function setMaxRateLimitRetries(int $value): self
+    {
+        if ($value < 0 || $value > 10) {
+            throw new \InvalidArgumentException('Rate limit retries must be between zero and ten.');
+        }
+        $this->maxRateLimitRetries = $value;
+        return $this;
+    }
+
+    public function getMaxRateLimitRetries(): int
+    {
+        return $this->maxRateLimitRetries;
     }
 
     public function getTimeout(): float

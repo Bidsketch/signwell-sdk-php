@@ -744,6 +744,9 @@ class DocumentResponseRecipientsInner implements ModelInterface, ArrayAccess, \J
         }
         $allowedValues = $this->getDeliveryMethodAllowableValues();
         if (!in_array($delivery_method, $allowedValues, true)) {
+            if (!is_string($delivery_method)) {
+                throw new \InvalidArgumentException('Enum values must be strings.');
+            }
             $delivery_method = self::DELIVERY_METHOD_UNKNOWN_DEFAULT_OPEN_API;
         }
         $this->container['delivery_method'] = $delivery_method;

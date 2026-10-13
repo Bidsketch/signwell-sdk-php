@@ -455,6 +455,9 @@ class ConditionalLogicDecisionInfo implements ModelInterface, ArrayAccess, \Json
         }
         $allowedValues = $this->getDecisionTypeAllowableValues();
         if (!in_array($decision_type, $allowedValues, true)) {
+            if (!is_string($decision_type)) {
+                throw new \InvalidArgumentException('Enum values must be strings.');
+            }
             $decision_type = self::DECISION_TYPE_UNKNOWN_DEFAULT_OPEN_API;
         }
         $this->container['decision_type'] = $decision_type;

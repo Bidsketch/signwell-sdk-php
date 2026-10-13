@@ -1373,6 +1373,9 @@ class DocumentFromTemplateRequest implements ModelInterface, ArrayAccess, \JsonS
         }
         $allowedValues = $this->getConditionalRulesModeAllowableValues();
         if (!in_array($conditional_rules_mode, $allowedValues, true)) {
+            if (!is_string($conditional_rules_mode)) {
+                throw new \InvalidArgumentException('Enum values must be strings.');
+            }
             $conditional_rules_mode = self::CONDITIONAL_RULES_MODE_UNKNOWN_DEFAULT_OPEN_API;
         }
         $this->container['conditional_rules_mode'] = $conditional_rules_mode;

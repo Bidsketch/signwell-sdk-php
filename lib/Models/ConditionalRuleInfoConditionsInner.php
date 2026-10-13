@@ -442,6 +442,9 @@ class ConditionalRuleInfoConditionsInner implements ModelInterface, ArrayAccess,
         }
         $allowedValues = $this->getConditionTypeAllowableValues();
         if (!in_array($condition_type, $allowedValues, true)) {
+            if (!is_string($condition_type)) {
+                throw new \InvalidArgumentException('Enum values must be strings.');
+            }
             $condition_type = self::CONDITION_TYPE_UNKNOWN_DEFAULT_OPEN_API;
         }
         $this->container['condition_type'] = $condition_type;
@@ -474,6 +477,9 @@ class ConditionalRuleInfoConditionsInner implements ModelInterface, ArrayAccess,
         }
         $allowedValues = $this->getStatusAllowableValues();
         if (!in_array($status, $allowedValues, true)) {
+            if (!is_string($status)) {
+                throw new \InvalidArgumentException('Enum values must be strings.');
+            }
             $status = self::STATUS_UNKNOWN_DEFAULT_OPEN_API;
         }
         $this->container['status'] = $status;
@@ -506,6 +512,9 @@ class ConditionalRuleInfoConditionsInner implements ModelInterface, ArrayAccess,
         }
         $allowedValues = $this->getJoinOperatorAllowableValues();
         if (!in_array($join_operator, $allowedValues, true)) {
+            if (!is_string($join_operator)) {
+                throw new \InvalidArgumentException('Enum values must be strings.');
+            }
             $join_operator = self::JOIN_OPERATOR_UNKNOWN_DEFAULT_OPEN_API;
         }
         $this->container['join_operator'] = $join_operator;

@@ -454,6 +454,9 @@ class ConditionalRuleInfo implements ModelInterface, ArrayAccess, \JsonSerializa
         }
         $allowedValues = $this->getActionTypeAllowableValues();
         if (!in_array($action_type, $allowedValues, true)) {
+            if (!is_string($action_type)) {
+                throw new \InvalidArgumentException('Enum values must be strings.');
+            }
             $action_type = self::ACTION_TYPE_UNKNOWN_DEFAULT_OPEN_API;
         }
         $this->container['action_type'] = $action_type;

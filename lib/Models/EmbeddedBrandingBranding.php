@@ -385,6 +385,9 @@ class EmbeddedBrandingBranding implements ModelInterface, ArrayAccess, \JsonSeri
         }
         $allowedValues = $this->getCompanyLogoAllowableValues();
         if (!in_array($company_logo, $allowedValues, true)) {
+            if (!is_string($company_logo)) {
+                throw new \InvalidArgumentException('Enum values must be strings.');
+            }
             $company_logo = self::COMPANY_LOGO_UNKNOWN_DEFAULT_OPEN_API;
         }
         $this->container['company_logo'] = $company_logo;

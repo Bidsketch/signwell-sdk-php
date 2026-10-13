@@ -24,6 +24,18 @@ use SignWell\Sdk\Resources\TemplateApi;
 
 final class GeneratedResourceHelpersTest extends TestCase
 {
+    public function testFutureEnumsKeepResponsesReadableWithoutAcceptingWrongTypes(): void
+    {
+        $field = ObjectSerializer::deserialize((object) ['x' => 1, 'y' => 2, 'page' => 1, 'date_format' => 'future_format'], \SignWell\Sdk\Models\DocumentResponseFieldsInnerInner::class);
+        self::assertInstanceOf(\SignWell\Sdk\Models\DocumentResponseFieldsInnerInner::class, $field);
+        self::assertSame('unknown_default_open_api', $field->getDateFormat());
+        $delivery = ObjectSerializer::deserialize((object) ['methods' => ['email', 'future_method']], \SignWell\Sdk\Models\RecipientsInnerPasscodeDelivery::class);
+        self::assertInstanceOf(\SignWell\Sdk\Models\RecipientsInnerPasscodeDelivery::class, $delivery);
+        self::assertSame(['email', 'unknown_default_open_api'], $delivery->getMethods());
+        $this->expectException(\InvalidArgumentException::class);
+        ObjectSerializer::deserialize(17, \SignWell\Sdk\Models\DateFormat::class);
+    }
+
     public function testPrimitiveUnionsPreserveResponseValuesAndRoundTrip(): void
     {
         foreach ([AdditionalFieldsInnerInnerValue::class, DocumentResponseFieldsInnerInnerValue::class, TemplateFieldValuesInnerValue::class] as $class) {

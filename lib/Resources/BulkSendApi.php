@@ -180,7 +180,7 @@ class BulkSendApi
             $options = $this->createHttpClientOption();
             $this->debugRequest($request);
             try {
-                $response = $this->client->send($request, $options);
+                $response = \SignWell\Sdk\RateLimitRetry::sendAsync($this->client, $request, $options, $this->config->getMaxRateLimitRetries())->wait();
                 $this->debugResponse($request, $response);
             } catch (RequestException|ConnectException $e) {
                 $this->debugTransportError($request, $e);
@@ -421,8 +421,7 @@ class BulkSendApi
         $options = $this->createHttpClientOption();
         $this->debugRequest($request);
 
-        return $this->client
-            ->sendAsync($request, $options)
+        return \SignWell\Sdk\RateLimitRetry::sendAsync($this->client, $request, $options, $this->config->getMaxRateLimitRetries())
             ->then(
                 function (ResponseInterface $response) use ($request, $returnType) {
                     $this->debugResponse($request, $response);
@@ -573,7 +572,7 @@ class BulkSendApi
             $options = $this->createHttpClientOption();
             $this->debugRequest($request);
             try {
-                $response = $this->client->send($request, $options);
+                $response = \SignWell\Sdk\RateLimitRetry::sendAsync($this->client, $request, $options, $this->config->getMaxRateLimitRetries())->wait();
                 $this->debugResponse($request, $response);
             } catch (RequestException|ConnectException $e) {
                 $this->debugTransportError($request, $e);
@@ -814,8 +813,7 @@ class BulkSendApi
         $options = $this->createHttpClientOption();
         $this->debugRequest($request);
 
-        return $this->client
-            ->sendAsync($request, $options)
+        return \SignWell\Sdk\RateLimitRetry::sendAsync($this->client, $request, $options, $this->config->getMaxRateLimitRetries())
             ->then(
                 function (ResponseInterface $response) use ($request, $returnType) {
                     $this->debugResponse($request, $response);
@@ -970,7 +968,7 @@ class BulkSendApi
             $options = $this->createHttpClientOption();
             $this->debugRequest($request);
             try {
-                $response = $this->client->send($request, $options);
+                $response = \SignWell\Sdk\RateLimitRetry::sendAsync($this->client, $request, $options, $this->config->getMaxRateLimitRetries())->wait();
                 $this->debugResponse($request, $response);
             } catch (RequestException|ConnectException $e) {
                 $this->debugTransportError($request, $e);
@@ -1072,8 +1070,7 @@ class BulkSendApi
         $options = $this->createHttpClientOption();
         $this->debugRequest($request);
 
-        return $this->client
-            ->sendAsync($request, $options)
+        return \SignWell\Sdk\RateLimitRetry::sendAsync($this->client, $request, $options, $this->config->getMaxRateLimitRetries())
             ->then(
                 function (ResponseInterface $response) use ($request, $returnType) {
                     $this->debugResponse($request, $response);
@@ -1248,7 +1245,7 @@ class BulkSendApi
             $options = $this->createHttpClientOption();
             $this->debugRequest($request);
             try {
-                $response = $this->client->send($request, $options);
+                $response = \SignWell\Sdk\RateLimitRetry::sendAsync($this->client, $request, $options, $this->config->getMaxRateLimitRetries())->wait();
                 $this->debugResponse($request, $response);
             } catch (RequestException|ConnectException $e) {
                 $this->debugTransportError($request, $e);
@@ -1493,8 +1490,7 @@ class BulkSendApi
         $options = $this->createHttpClientOption();
         $this->debugRequest($request);
 
-        return $this->client
-            ->sendAsync($request, $options)
+        return \SignWell\Sdk\RateLimitRetry::sendAsync($this->client, $request, $options, $this->config->getMaxRateLimitRetries())
             ->then(
                 function (ResponseInterface $response) use ($request, $returnType) {
                     $this->debugResponse($request, $response);
@@ -1684,7 +1680,7 @@ class BulkSendApi
             $options = $this->createHttpClientOption();
             $this->debugRequest($request);
             try {
-                $response = $this->client->send($request, $options);
+                $response = \SignWell\Sdk\RateLimitRetry::sendAsync($this->client, $request, $options, $this->config->getMaxRateLimitRetries())->wait();
                 $this->debugResponse($request, $response);
             } catch (RequestException|ConnectException $e) {
                 $this->debugTransportError($request, $e);
@@ -1896,8 +1892,7 @@ class BulkSendApi
         $options = $this->createHttpClientOption();
         $this->debugRequest($request);
 
-        return $this->client
-            ->sendAsync($request, $options)
+        return \SignWell\Sdk\RateLimitRetry::sendAsync($this->client, $request, $options, $this->config->getMaxRateLimitRetries())
             ->then(
                 function (ResponseInterface $response) use ($request, $returnType) {
                     $this->debugResponse($request, $response);
@@ -2087,7 +2082,7 @@ class BulkSendApi
             $options = $this->createHttpClientOption();
             $this->debugRequest($request);
             try {
-                $response = $this->client->send($request, $options);
+                $response = \SignWell\Sdk\RateLimitRetry::sendAsync($this->client, $request, $options, $this->config->getMaxRateLimitRetries())->wait();
                 $this->debugResponse($request, $response);
             } catch (RequestException|ConnectException $e) {
                 $this->debugTransportError($request, $e);
@@ -2328,8 +2323,7 @@ class BulkSendApi
         $options = $this->createHttpClientOption();
         $this->debugRequest($request);
 
-        return $this->client
-            ->sendAsync($request, $options)
+        return \SignWell\Sdk\RateLimitRetry::sendAsync($this->client, $request, $options, $this->config->getMaxRateLimitRetries())
             ->then(
                 function (ResponseInterface $response) use ($request, $returnType) {
                     $this->debugResponse($request, $response);

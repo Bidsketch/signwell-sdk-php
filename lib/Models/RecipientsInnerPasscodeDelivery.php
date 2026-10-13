@@ -390,12 +390,15 @@ class RecipientsInnerPasscodeDelivery implements ModelInterface, ArrayAccess, \J
         }
         $allowedValues = $this->getMethodsAllowableValues();
         if (array_diff($methods, $allowedValues)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for 'methods', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
+            $methods = array_map(static function ($value) use ($allowedValues) {
+                if (in_array($value, $allowedValues, true)) {
+                    return $value;
+                }
+                if (!is_string($value)) {
+                    throw new \InvalidArgumentException('Enum values must be strings.');
+                }
+                return self::METHODS_UNKNOWN_DEFAULT_OPEN_API;
+            }, $methods);
         }
         $this->container['methods'] = $methods;
         $this->normalizeAfterSet();

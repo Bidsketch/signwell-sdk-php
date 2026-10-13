@@ -686,6 +686,9 @@ class DocumentResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         }
         $allowedValues = $this->getCfrPart11SigningModeAllowableValues();
         if (!is_null($cfr_part11_signing_mode) && !in_array($cfr_part11_signing_mode, $allowedValues, true)) {
+            if (!is_string($cfr_part11_signing_mode)) {
+                throw new \InvalidArgumentException('Enum values must be strings.');
+            }
             $cfr_part11_signing_mode = self::CFR_PART11_SIGNING_MODE_UNKNOWN_DEFAULT_OPEN_API;
         }
         $this->container['cfr_part11_signing_mode'] = $cfr_part11_signing_mode;
