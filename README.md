@@ -10,6 +10,18 @@ composer require signwell/signwell-sdk-php
 
 Requires PHP 8.2 or newer.
 
+## Retries and future API values
+
+Explicit HTTP 429 responses retry up to twice, including JSON POST requests and
+downloads. Retry-After seconds or HTTP dates are honored; absent or invalid
+headers use one then two seconds of backoff. A requested wait above 60 seconds
+returns the rate-limit error immediately. Network failures and other status codes
+are not retried by default. Disable SDK retries with `$config->setMaxRateLimitRetries(0)`.
+Requests with non-seekable bodies are not replayed. Existing Guzzle transport settings remain in effect.
+
+Unknown enum strings returned by the API remain readable as `unknown_default_open_api`.
+Known enum values keep their existing API strings.
+
 ## Quick Start
 
 ```php

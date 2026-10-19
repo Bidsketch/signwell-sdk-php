@@ -34,5 +34,6 @@ Name | Type | Description | Notes
 **allow_reassign** | **bool** |  | [optional]
 **labels** | [**\SignWell\Sdk\Models\LabelInfo[]**](LabelInfo.md) |  | [optional]
 **checkbox_groups** | [**\SignWell\Sdk\Models\CheckboxGroupInfo[]**](CheckboxGroupInfo.md) |  | [optional]
+**conditional_rules** | [**\SignWell\Sdk\Models\ConditionalRuleInfo[]**](ConditionalRuleInfo.md) |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

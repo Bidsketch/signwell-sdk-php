@@ -23,6 +23,34 @@ use SignWell\Sdk\Resources\RegionalApi;
 
 final class ResponseModesTest extends TestCase
 {
+    public function testRateLimitRetriesReplayPostsAndKeepTypedErrors(): void
+    {
+        foreach ([[429, '0', 2, 3], [429, '0', 0, 1], [429, '120', 2, 1], [500, '0', 2, 1]] as [$status, $header, $limit, $expected]) {
+            $history = [];
+            $responses = array_map(static fn ($unused) => new Response($status, ['Content-Type' => 'application/json', 'Retry-After' => $header], '{}'), range(1, $expected));
+            $api = new DocumentApi($this->client($responses, $history), $this->config()->setMaxRateLimitRetries($limit));
+            try {
+                $api->createDocument(new \SignWell\Sdk\Models\DocumentRequest(['name' => 'Retry document', 'test_mode' => true]));
+                self::fail('Expected status error');
+            } catch (ApiException $error) {
+                self::assertSame($status, $error->getCode());
+            }
+            self::assertCount($expected, $history);
+            self::assertCount(1, array_unique(array_map(static fn ($entry) => (string) $entry['request']->getBody(), $history)));
+        }
+    }
+
+    public function testRetryDownloadAndAsyncRequestsDiscardRejectedStreams(): void
+    {
+        $rejected = new \GuzzleHttp\Psr7\Response(429, ['Retry-After' => '0'], 'limited');
+        $api = new DocumentApi($this->client([$rejected, new Response(200, ['Content-Type' => 'application/pdf'], '%PDF')]), $this->config());
+        $file = $api->getCompletedPdf('doc_1');
+        self::assertSame('%PDF', $file->fread(4));
+        self::assertFalse($rejected->getBody()->isReadable());
+        $api = new DocumentApi($this->client([new Response(429, ['Retry-After' => '0'], '{}'), new Response(200, ['Content-Type' => 'application/json'], '{"id":"doc_1"}')]), $this->config());
+        self::assertSame('doc_1', $api->getDocumentAsync('doc_1')->wait()->getId());
+    }
+
     public function testBulkSendCsvTemplateDefaultsToBinaryMode(): void
     {
         $history = [];
@@ -129,7 +157,7 @@ final class ResponseModesTest extends TestCase
 
     /**
      * @param list<Response> $responses
-     * @param array|\ArrayAccess<int, array>|null $history
+     * @param array<array{request: \Psr\Http\Message\RequestInterface, response: \Psr\Http\Message\ResponseInterface|null, error: mixed, options: array<mixed>}>|\ArrayAccess<int, array{request: \Psr\Http\Message\RequestInterface, response: \Psr\Http\Message\ResponseInterface|null, error: mixed, options: array<mixed>}>|null $history
      */
     private function client(array $responses, array|\ArrayAccess|null &$history = null): Client
     {

@@ -29,7 +29,6 @@ $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKey('X-Ap
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-Api-Key', 'Bearer');
 
-
 $apiInstance = new SignWell\Sdk\Resources\RegionalApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.

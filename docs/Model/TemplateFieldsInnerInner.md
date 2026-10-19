@@ -15,6 +15,8 @@ Name | Type | Description | Notes
 **api_id** | **string** | Unique identifier of the field. Useful when needing to reference specific field values or update a document and its fields. | [optional]
 **name** | **string** | Checkbox fields only. At least 2 checkbox fields in an array of fields must be assigned to the same recipient and grouped with selection requirements. | [optional]
 **validation** | [**\SignWell\Sdk\Models\TextValidation**](TextValidation.md) |  | [optional]
+**validation_regex** | **string** | Text fields with custom validation only: the regex pattern used to validate field values. Required when validation is set to custom. | [optional]
+**validation_regex_error_message** | **string** | Text fields with custom validation only: the error message shown to the recipient when their input doesn&#39;t match the regex pattern. Required when validation is set to custom. | [optional]
 **fixed_width** | **bool** | Text fields only: whether the field width will stay fixed and text will display in multiple lines, rather than one long line. If set to &#x60;false&#x60; the field width will automatically grow horizontally to fit text on one line. Defaults to &#x60;false&#x60;. | [optional] [default to false]
 **lock_sign_date** | **bool** | Date fields only: makes fields readonly and automatically populates with the date the recipient signed. Defaults to &#x60;false&#x60;. | [optional] [default to false]
 **date_format** | [**\SignWell\Sdk\Models\DateFormat**](DateFormat.md) |  | [optional]

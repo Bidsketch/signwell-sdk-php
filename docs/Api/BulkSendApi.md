@@ -34,7 +34,6 @@ $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKey('X-Ap
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-Api-Key', 'Bearer');
 
-
 $apiInstance = new SignWell\Sdk\Resources\BulkSendApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
@@ -96,7 +95,6 @@ $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKey('X-Ap
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-Api-Key', 'Bearer');
 
-
 $apiInstance = new SignWell\Sdk\Resources\BulkSendApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
@@ -157,7 +155,6 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKey('X-Api-Key', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-Api-Key', 'Bearer');
-
 
 $apiInstance = new SignWell\Sdk\Resources\BulkSendApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -221,7 +218,6 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKey('X-Api-Key', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-Api-Key', 'Bearer');
-
 
 $apiInstance = new SignWell\Sdk\Resources\BulkSendApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -287,7 +283,6 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKey('X-Api-Key', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-Api-Key', 'Bearer');
-
 
 $apiInstance = new SignWell\Sdk\Resources\BulkSendApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
@@ -355,7 +350,6 @@ require_once(__DIR__ . '/vendor/autoload.php');
 $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKey('X-Api-Key', 'YOUR_API_KEY');
 // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
 // $config = SignWell\Sdk\Configuration::getDefaultConfiguration()->setApiKeyPrefix('X-Api-Key', 'Bearer');
-
 
 $apiInstance = new SignWell\Sdk\Resources\BulkSendApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
